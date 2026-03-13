@@ -1,0 +1,365 @@
+# Investment Research Report: {{ company_name }} ({{ ticker }})
+
+**Date:** {{ analysis_date }}
+**Research System:** AI Multi-Agent Stock Analysis
+**Investment Style:** Long-Term Value Investing
+
+---
+
+## Executive Summary
+
+{% set rec = final_recommendation %}
+{% if rec %}
+| Field | Value |
+|---|---|
+| **Recommendation** | **{{ rec.get('recommendation', 'N/A') }}** |
+| **Confidence** | {{ rec.get('confidence', 'N/A') }}/10 |
+| **Current Price** | ${{ "%.2f"|format(current_price) }} |
+| **12-Month Price Target** | ${{ rec.get('price_target_12m', 'N/A') }} |
+| **Upside Potential** | {{ rec.get('upside_pct', 'N/A') }}% |
+| **Max Downside Risk** | -{{ rec.get('downside_risk_pct', 'N/A') }}% |
+| **Investment Horizon** | {{ rec.get('investment_horizon', 'N/A') }} |
+| **Risk Level** | {{ risk_assessment.get('overall_risk_level', 'N/A') }} |
+| **Composite Score** | {{ rec.get('composite_score', 'N/A') }}/10 |
+
+{{ rec.get('executive_summary', '') }}
+{% else %}
+*Analysis incomplete — recommendation not generated.*
+{% endif %}
+
+---
+
+## 1. Company Overview
+
+{% set mi = market_intelligence %}
+{% if mi and not mi.get('error') %}
+**{{ company_name }}** operates in the **{{ info.get('sector', 'N/A') }}** sector ({{ info.get('industry', 'N/A') }}).
+
+{{ mi.get('business_description', '') }}
+
+### Revenue Streams
+{% for rs in mi.get('revenue_streams', []) %}
+- {{ rs }}
+{% endfor %}
+
+### Competitive Advantages
+{% for adv in mi.get('competitive_advantages', []) %}
+- {{ adv }}
+{% endfor %}
+
+### Competitive Risks
+{% for risk in mi.get('competitive_risks', []) %}
+- {{ risk }}
+{% endfor %}
+
+**Industry Position:** {{ mi.get('industry_position', 'N/A') }}
+
+**Management Assessment:** {{ mi.get('management_assessment', 'N/A') }} *(Score: {{ mi.get('management_score', 'N/A') }}/10)*
+
+**Recent Events:**
+{% for event in mi.get('recent_events', []) %}
+- {{ event }}
+{% endfor %}
+
+*Company Quality Score: {{ mi.get('company_quality_score', 'N/A') }}/10*
+{% else %}
+*Market intelligence data not available.*
+{% endif %}
+
+---
+
+## 2. Industry Analysis
+
+{% if mi and not mi.get('error') %}
+**Addressable Market:** {{ mi.get('market_size_assessment', 'N/A') }}
+
+**Key Insight:** {{ mi.get('key_insights', 'N/A') }}
+{% endif %}
+
+---
+
+## 3. Macro Environment
+
+{% set mac = macro_analysis %}
+{% if mac and not mac.get('error') %}
+| Factor | Assessment |
+|---|---|
+| **Overall Macro Verdict** | **{{ mac.get('overall_macro_verdict', 'N/A')|upper }}** |
+| **Sector Macro Impact** | {{ mac.get('sector_macro_impact', 'N/A') }} |
+| **Interest Rates** | {{ mac.get('interest_rate_environment', 'N/A') }} |
+| **Inflation Trend** | {{ mac.get('inflation_trend', 'N/A') }} |
+| **Economic Cycle** | {{ mac.get('economic_cycle', 'N/A') }} |
+| **Liquidity** | {{ mac.get('liquidity_conditions', 'N/A') }} |
+| **Macro Score** | {{ mac.get('macro_score', 'N/A') }}/10 |
+
+{{ mac.get('macro_summary', '') }}
+
+**Interest Rate Impact:** {{ mac.get('interest_rate_analysis', '') }}
+
+**Inflation Impact:** {{ mac.get('inflation_impact', '') }}
+
+**Sector Macro Explanation:** {{ mac.get('sector_macro_explanation', '') }}
+
+**Key Macro Risk:** {{ mac.get('key_macro_risk', 'N/A') }}
+
+{% if mac.get('geopolitical_risks') %}
+**Geopolitical Risks:**
+{% for gr in mac.get('geopolitical_risks', []) %}
+- {{ gr }}
+{% endfor %}
+{% endif %}
+{% else %}
+*Macro analysis not available.*
+{% endif %}
+
+---
+
+## 4. Fundamental Analysis
+
+{% set fund = fundamental_analysis %}
+{% if fund and not fund.get('error') %}
+| Metric | Assessment | Score |
+|---|---|---|
+| **Overall Fundamental** | — | **{{ fund.get('fundamental_score', 'N/A') }}/10** |
+| Valuation | {{ fund.get('valuation_verdict', 'N/A') }} | {{ fund.get('valuation_score', 'N/A') }}/10 |
+| Profitability | {{ fund.get('profitability_assessment', 'N/A') }} | {{ fund.get('profitability_score', 'N/A') }}/10 |
+| Growth | {{ fund.get('growth_assessment', 'N/A') }} | {{ fund.get('growth_score', 'N/A') }}/10 |
+| Balance Sheet | {{ fund.get('balance_sheet_health', 'N/A') }} | {{ fund.get('balance_sheet_score', 'N/A') }}/10 |
+| FCF Quality | {{ fund.get('fcf_quality', 'N/A') }} | {{ fund.get('fcf_score', 'N/A') }}/10 |
+
+### Key Financial Data
+
+| Metric | Value |
+|---|---|
+| Current Price | ${{ "%.2f"|format(current_price) }} |
+| Market Cap | ${{ "%.2f"|format((info.get('marketCap') or 0) / 1e9) }}B |
+| Trailing P/E | {{ info.get('trailingPE', 'N/A') }} |
+| Forward P/E | {{ info.get('forwardPE', 'N/A') }} |
+| PEG Ratio | {{ info.get('pegRatio', 'N/A') }} |
+| P/Book | {{ info.get('priceToBook', 'N/A') }} |
+| EV/EBITDA | {{ info.get('enterpriseToEbitda', 'N/A') }} |
+| Gross Margin | {{ ((info.get('grossMargins') or 0) * 100)|round(1) }}% |
+| Net Margin | {{ ((info.get('profitMargins') or 0) * 100)|round(1) }}% |
+| ROE | {{ ((info.get('returnOnEquity') or 0) * 100)|round(1) }}% |
+| Revenue Growth | {{ ((info.get('revenueGrowth') or 0) * 100)|round(1) }}% |
+| FCF (TTM) | ${{ "%.2f"|format((info.get('freeCashflow') or 0) / 1e9) }}B |
+| Debt/Equity | {{ info.get('debtToEquity', 'N/A') }} |
+
+{{ fund.get('fundamental_summary', '') }}
+
+**Valuation Analysis:** {{ fund.get('valuation_notes', '') }}
+
+**Intrinsic Value Estimate:** {{ fund.get('intrinsic_value_estimate', '') }}
+
+**Balance Sheet Notes:** {{ fund.get('balance_sheet_notes', '') }}
+
+### Key Strengths
+{% for s in fund.get('key_strengths', []) %}
+- {{ s }}
+{% endfor %}
+
+### Key Weaknesses
+{% for w in fund.get('key_weaknesses', []) %}
+- {{ w }}
+{% endfor %}
+{% else %}
+*Fundamental analysis not available.*
+{% endif %}
+
+---
+
+## 5. Technical Analysis
+
+{% set tech = technical_analysis %}
+{% if tech and not tech.get('error') %}
+| Signal | Assessment |
+|---|---|
+| **Entry Timing** | **{{ tech.get('entry_timing', 'N/A') }}** |
+| **Technical Score** | {{ tech.get('technical_score', 'N/A') }}/10 |
+| Trend Direction | {{ tech.get('trend_direction', 'N/A') }} |
+| Trend Strength | {{ tech.get('trend_strength', 'N/A') }} |
+| Momentum | {{ tech.get('momentum_signal', 'N/A') }} |
+| Volatility | {{ tech.get('volatility_level', 'N/A') }} |
+| Volume Signal | {{ tech.get('volume_signal', 'N/A') }} |
+| Support Level | ${{ tech.get('support_level', 'N/A') }} |
+| Resistance Level | ${{ tech.get('resistance_level', 'N/A') }} |
+
+{{ tech.get('technical_summary', '') }}
+
+**Trend:** {{ tech.get('trend_analysis', '') }}
+
+**Momentum:** {{ tech.get('momentum_notes', '') }}
+
+**Entry Rationale:** {{ tech.get('entry_timing_rationale', '') }}
+
+**Suggested Entry Zone:** {{ tech.get('suggested_entry_zone', 'N/A') }}
+
+{% if tech.get('_indicators') %}
+### Raw Indicators
+| Indicator | Value |
+|---|---|
+| RSI (14) | {{ tech['_indicators'].get('rsi', 'N/A') }} |
+| MACD | {{ tech['_indicators'].get('macd', 'N/A') }} |
+| SMA 20 | ${{ tech['_indicators'].get('sma_20', 'N/A') }} |
+| SMA 50 | ${{ tech['_indicators'].get('sma_50', 'N/A') }} |
+| SMA 200 | ${{ tech['_indicators'].get('sma_200', 'N/A') }} |
+| 52W High | ${{ tech['_indicators'].get('week_52_high', 'N/A') }} |
+| 52W Low | ${{ tech['_indicators'].get('week_52_low', 'N/A') }} |
+| 1Y Return | {{ tech['_indicators'].get('return_1y', 'N/A') }}% |
+{% endif %}
+{% else %}
+*Technical analysis not available: {{ tech.get('error', 'unknown error') if tech else 'not run' }}*
+{% endif %}
+
+---
+
+## 6. Analyst Sentiment
+
+{% set sent = sentiment_analysis %}
+{% if sent and not sent.get('error') %}
+| Factor | Assessment |
+|---|---|
+| **Analyst Consensus** | **{{ sent.get('analyst_consensus', 'N/A')|upper }}** |
+| **News Sentiment** | {{ sent.get('news_sentiment', 'N/A') }} |
+| **Narrative Shift** | {{ sent.get('narrative_shift', 'N/A') }} |
+| **Contrarian Signal** | {{ sent.get('contrarian_signal', 'N/A') }} |
+| **Sentiment Score** | {{ sent.get('sentiment_score', 'N/A') }}/10 |
+| Analyst Price Target | ${{ sent.get('analyst_price_target_mean', 'N/A') }} ({{ sent.get('analyst_upside_pct', 'N/A') }}% upside) |
+| Analyst Disagreement | {{ sent.get('analyst_disagreement', 'N/A') }} |
+| Institutional Activity | {{ sent.get('institutional_activity', 'N/A') }} |
+
+{{ sent.get('sentiment_summary', '') }}
+
+**News Analysis:** {{ sent.get('news_sentiment_explanation', '') }}
+
+**Contrarian View:** {{ sent.get('contrarian_explanation', '') }}
+
+**Analyst Bias:** {{ sent.get('analyst_bias_assessment', '') }}
+{% else %}
+*Sentiment analysis not available.*
+{% endif %}
+
+---
+
+## 7. Risk Analysis
+
+{% set risk = risk_assessment %}
+{% if risk and not risk.get('error') %}
+**Overall Risk Level: {{ risk.get('overall_risk_level', 'N/A') }}** | Risk Score: {{ risk.get('risk_score', 'N/A') }}/10
+
+{{ risk.get('risk_summary', '') }}
+
+### Top 3 Risks
+{% for r in risk.get('top_3_risks', []) %}
+{{ loop.index }}. {{ r }}
+{% endfor %}
+
+### Company Risks
+{% for r in risk.get('company_risks', []) %}
+- **[{{ r.get('severity', 'N/A') }}]** {{ r.get('risk', '') }} *({{ r.get('probability', '') }} probability)* — Mitigant: {{ r.get('mitigant', '') }}
+{% endfor %}
+
+### Industry Risks
+{% for r in risk.get('industry_risks', []) %}
+- **[{{ r.get('severity', 'N/A') }}]** {{ r.get('risk', '') }} *({{ r.get('probability', '') }} probability)* — Mitigant: {{ r.get('mitigant', '') }}
+{% endfor %}
+
+### Market / Macro Risks
+{% for r in risk.get('market_risks', []) %}
+- **[{{ r.get('severity', 'N/A') }}]** {{ r.get('risk', '') }} *({{ r.get('probability', '') }} probability)* — Mitigant: {{ r.get('mitigant', '') }}
+{% endfor %}
+
+### Event Risks
+{% for r in risk.get('event_risks', []) %}
+- **[{{ r.get('severity', 'N/A') }}]** {{ r.get('risk', '') }} *({{ r.get('probability', '') }} probability)* — Mitigant: {{ r.get('mitigant', '') }}
+{% endfor %}
+
+**Bear Case / Downside Scenario:**
+{{ risk.get('downside_scenario', '') }}
+
+*Estimated maximum downside: -{{ risk.get('downside_pct_estimate', 'N/A') }}%*
+{% else %}
+*Risk assessment not available.*
+{% endif %}
+
+---
+
+## 8. Investment Thesis
+
+{% set rec = final_recommendation %}
+{% if rec %}
+### Core Thesis
+{{ rec.get('thesis', '') }}
+
+### Bull Case
+{{ rec.get('bull_case', '') }}
+
+### Bear Case
+{{ rec.get('bear_case', '') }}
+
+### Score Breakdown
+{% set scores = rec.get('score_breakdown', {}) %}
+| Dimension | Score |
+|---|---|
+| Business Quality | {{ scores.get('business_quality', 'N/A') }}/10 |
+| Financial Strength | {{ scores.get('financial_strength', 'N/A') }}/10 |
+| Valuation | {{ scores.get('valuation', 'N/A') }}/10 |
+| Macro Environment | {{ scores.get('macro_environment', 'N/A') }}/10 |
+| Technical Timing | {{ scores.get('technical_timing', 'N/A') }}/10 |
+| Sentiment | {{ scores.get('sentiment', 'N/A') }}/10 |
+| Risk-Adjusted | {{ scores.get('risk_adjusted', 'N/A') }}/10 |
+| **COMPOSITE** | **{{ rec.get('composite_score', 'N/A') }}/10** |
+{% endif %}
+
+---
+
+## 9. Final Recommendation
+
+{% set rec = final_recommendation %}
+{% if rec %}
+## {{ rec.get('recommendation', 'N/A') }}
+
+| Field | Details |
+|---|---|
+| Confidence | {{ rec.get('confidence', 'N/A') }}/10 |
+| Current Price | ${{ "%.2f"|format(current_price) }} |
+| 12-Month Price Target | **${{ rec.get('price_target_12m', 'N/A') }}** |
+| Upside Potential | {{ rec.get('upside_pct', 'N/A') }}% |
+| Downside Risk | -{{ rec.get('downside_risk_pct', 'N/A') }}% |
+| Investment Horizon | {{ rec.get('investment_horizon', 'N/A') }} |
+| Position Sizing | {{ rec.get('position_sizing', 'N/A') }} |
+| Suggested Entry Zone | {{ rec.get('suggested_entry_zone', 'N/A') }} |
+
+**Price Target Rationale:** {{ rec.get('price_target_rationale', '') }}
+
+**Position Sizing Rationale:** {{ rec.get('position_sizing_rationale', '') }}
+
+### Key Catalysts to Watch
+{% for c in rec.get('key_catalysts_to_watch', []) %}
+- {{ c }}
+{% endfor %}
+
+### Key Metrics to Monitor
+{% for m in rec.get('key_metrics_to_monitor', []) %}
+- {{ m }}
+{% endfor %}
+{% endif %}
+
+---
+
+## Appendix — Errors & Data Gaps
+
+{% if errors %}
+The following data gaps or errors were encountered during analysis:
+{% for err in errors %}
+- `{{ err }}`
+{% endfor %}
+{% else %}
+No data errors reported.
+{% endif %}
+
+---
+*This report was generated by an AI research system for informational purposes only.
+It does not constitute financial advice. Always do your own due diligence.*
+
+*Generated: {{ analysis_date }} | Ticker: {{ ticker }}*
