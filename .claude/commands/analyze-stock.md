@@ -130,6 +130,28 @@ After saving, inform the user:
 
 ---
 
+## Step 5: Copy Executive Summary to Clipboard
+
+After the report is saved, extract the **Executive Summary** and **Final Recommendation** sections from the saved report and copy them to the clipboard using `pbcopy`:
+
+```bash
+/Users/shayeyal/PycharmProjects/Stock_Analysis_System/.venv/bin/python -c "
+import re, sys
+content = open(sys.argv[1]).read()
+exec_sum = re.search(r'(## EXECUTIVE SUMMARY.*?)(?=\n## [0-9])', content, re.DOTALL)
+final_rec = re.search(r'(## [0-9]+\. FINAL RECOMMENDATION.*?)(?=\n## APPENDIX|\Z)', content, re.DOTALL)
+parts = []
+if exec_sum: parts.append(exec_sum.group(1).strip())
+if final_rec: parts.append(final_rec.group(1).strip())
+print('\n\n---\n\n'.join(parts))
+" /Users/shayeyal/PycharmProjects/Stock_Analysis_System/reports/{TICKER}_{DATE}.md | pbcopy
+```
+
+After copying, inform the user:
+> "Executive summary + recommendation copied to clipboard."
+
+---
+
 ## Important Notes
 
 - **Data limitations**: yfinance may occasionally return incomplete data. If a metric is missing, the agents should state this explicitly rather than fabricate values.

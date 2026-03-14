@@ -97,6 +97,160 @@ def detect_support_resistance(close: pd.Series, window: int = 20) -> dict:
     }
 
 
+def detect_role_reversal_levels(
+    close: pd.Series,
+    high: pd.Series,
+    low: pd.Series,
+    window: int = 10,
+    lookback: int = 252,
+    breakout_closes: int = 2,
+    retest_window: int = 30,
+    proximity_pct: float = 0.12,
+) -> dict:
+    """
+    Detect S/R levels that have undergone a polarity flip (role reversal).
+
+    Resistance → Support: price breaks convincingly above a former resistance;
+                          that level now provides support on pullbacks.
+    Support → Resistance: price breaks convincingly below a former support;
+                          that level now caps rallies.
+
+    Each returned level includes:
+        price            – the level price
+        original_role    – 'resistance' or 'support'
+        current_role     – flipped role
+        broken_bars_ago  – how long ago the breakout was confirmed
+        retest_detected  – True if price has since returned to test the level
+        retest_held      – True if the level held on retest (confirmed flip)
+        confirmed        – retest_detected AND retest_held
+    """
+    n  = min(lookback, len(close))
+    c  = close.tail(n).reset_index(drop=True)
+    h  = high.tail(n).reset_index(drop=True)
+    lo = low.tail(n).reset_index(drop=True)
+
+    # ATR-14 for adaptive breakout buffer and retest-zone sizing
+    tr = pd.concat([
+        h - lo,
+        (h - c.shift()).abs(),
+        (lo - c.shift()).abs(),
+    ], axis=1).max(axis=1)
+    atr = tr.rolling(14).mean()
+
+    # ── 1. Identify pivot highs (resistance) and pivot lows (support) ─────────
+    pivots = []
+    for i in range(window, len(c) - window):
+        val   = float(c.iloc[i])
+        atr_i = float(atr.iloc[i]) if not pd.isna(atr.iloc[i]) else val * 0.01
+        if (all(val >= float(c.iloc[i - j]) for j in range(1, window + 1)) and
+                all(val >= float(c.iloc[i + j]) for j in range(1, window + 1))):
+            pivots.append({'idx': i, 'price': val, 'atr': atr_i, 'role': 'resistance'})
+        elif (all(val <= float(c.iloc[i - j]) for j in range(1, window + 1)) and
+              all(val <= float(c.iloc[i + j]) for j in range(1, window + 1))):
+            pivots.append({'idx': i, 'price': val, 'atr': atr_i, 'role': 'support'})
+
+    # ── 2. Cluster nearby pivots (1 % price tolerance, keep most recent) ──────
+    def cluster_pivots(pvts: list, tol: float = 0.01) -> list:
+        if not pvts:
+            return []
+        pvts = sorted(pvts, key=lambda x: x['price'])
+        groups: list = [[pvts[0]]]
+        for p in pvts[1:]:
+            if abs(p['price'] - groups[-1][-1]['price']) / groups[-1][-1]['price'] < tol:
+                groups[-1].append(p)
+            else:
+                groups.append([p])
+        return [max(g, key=lambda x: x['idx']) for g in groups]
+
+    all_pivots = (
+        cluster_pivots([p for p in pivots if p['role'] == 'resistance']) +
+        cluster_pivots([p for p in pivots if p['role'] == 'support'])
+    )
+
+    # ── 3. Detect breakouts and retests for each pivot ────────────────────────
+    current = float(c.iloc[-1])
+    flipped = []
+
+    for piv in all_pivots:
+        idx   = piv['idx']
+        price = piv['price']
+        role  = piv['role']
+        buf   = piv['atr'] * 0.5  # half-ATR confirmation buffer
+
+        # Require `breakout_closes` consecutive closes past the level
+        breakout_idx = None
+        streak = 0
+        if role == 'resistance':
+            for j in range(idx + 1, len(c)):
+                streak = streak + 1 if float(c.iloc[j]) > price + buf else 0
+                if streak >= breakout_closes:
+                    breakout_idx = j
+                    break
+        else:
+            for j in range(idx + 1, len(c)):
+                streak = streak + 1 if float(c.iloc[j]) < price - buf else 0
+                if streak >= breakout_closes:
+                    breakout_idx = j
+                    break
+
+        if breakout_idx is None:
+            continue  # level never broken — not a flip candidate
+
+        new_role    = 'support' if role == 'resistance' else 'resistance'
+        atr_b       = float(atr.iloc[breakout_idx]) if not pd.isna(atr.iloc[breakout_idx]) else price * 0.01
+        retest_zone = atr_b  # within 1 ATR = "retested"
+
+        retest_detected = retest_held = False
+        retest_scan_end = min(breakout_idx + 1 + retest_window, len(c))
+        for j in range(breakout_idx + 1, retest_scan_end):
+            if abs(float(c.iloc[j]) - price) <= retest_zone:
+                retest_detected = True
+                # "Held" = price does NOT produce `breakout_closes` consecutive
+                # closes back through the level (symmetric with the breakout logic)
+                fail_streak = 0
+                retest_held  = True
+                for k in range(j, min(j + retest_window, len(c))):
+                    close_k = float(c.iloc[k])
+                    failed  = (
+                        close_k < price - buf if new_role == 'support'
+                        else close_k > price + buf
+                    )
+                    if failed:
+                        fail_streak += 1
+                        if fail_streak >= breakout_closes:
+                            retest_held = False
+                            break
+                    else:
+                        fail_streak = 0
+                break
+
+        flipped.append({
+            'price':           round(price, 2),
+            'original_role':   role,
+            'current_role':    new_role,
+            'broken_bars_ago': len(c) - 1 - breakout_idx,
+            'retest_detected': retest_detected,
+            'retest_held':     retest_held,
+            'confirmed':       retest_detected and retest_held,
+        })
+
+    # ── 4. Return only levels within proximity_pct of current price ───────────
+    near = [f for f in flipped if abs(f['price'] - current) / current <= proximity_pct]
+
+    return {
+        # Closest below current price (former resistance, now support)
+        'former_resistance_now_support': sorted(
+            [f for f in near if f['current_role'] == 'support' and f['price'] <= current],
+            key=lambda x: -x['price'],
+        )[:3],
+        # Closest above current price (former support, now resistance)
+        'former_support_now_resistance': sorted(
+            [f for f in near if f['current_role'] == 'resistance' and f['price'] >= current],
+            key=lambda x: x['price'],
+        )[:3],
+    }
+
+
 def detect_trend(close: pd.Series, sma20: pd.Series, sma50: pd.Series, sma200: pd.Series) -> str:
     """
     Velocity-aware trend detection.
@@ -252,6 +406,236 @@ def detect_recent_crossover(line1: pd.Series, line2: pd.Series, lookback: int = 
         elif prev_diff > 0 and curr_diff < 0:
             return {"type": "bearish", "bars_ago": i}
     return {"type": "none", "bars_ago": None}
+
+
+def detect_fibonacci_signals(
+    close: pd.Series,
+    high: pd.Series,
+    low: pd.Series,
+    volume: pd.Series,
+    rsi: pd.Series,
+    sma20: pd.Series,
+    sma50: pd.Series,
+    sma200: pd.Series,
+    lookback: int = 90,
+    window: int = 5,
+    max_anchor_gap: int = 60,
+    confluence_tol: float = 0.01,
+    entry_tol: float = 0.015,
+    rsi_bull_threshold: float = 45,
+    rsi_bear_threshold: float = 55,
+    volume_threshold: float = 0.85,
+) -> dict:
+    """
+    Swing-anchored Fibonacci retracement/extension with entry signals.
+
+    Detects recent swing high/low pivots, computes retracement and extension
+    levels, checks MA confluence, and generates entry signals with stop-loss
+    and target levels.
+    """
+    high_r = high.tail(lookback).reset_index(drop=True)
+    low_r = low.tail(lookback).reset_index(drop=True)
+
+    swing_highs = []  # (index_in_lookback_window, price)
+    swing_lows = []
+
+    for i in range(window, len(high_r) - window):
+        h_val = float(high_r.iloc[i])
+        l_val = float(low_r.iloc[i])
+        if all(h_val >= float(high_r.iloc[i - j]) for j in range(1, window + 1)) and \
+           all(h_val >= float(high_r.iloc[i + j]) for j in range(1, window + 1)):
+            swing_highs.append((i, h_val))
+        if all(l_val <= float(low_r.iloc[i - j]) for j in range(1, window + 1)) and \
+           all(l_val <= float(low_r.iloc[i + j]) for j in range(1, window + 1)):
+            swing_lows.append((i, l_val))
+
+    if len(swing_highs) < 1 or len(swing_lows) < 1:
+        return {"error": "insufficient_pivot_data", "entry_signal": "none"}
+
+    # Find valid anchor pair: most recent swing high + most recent swing low
+    # within max_anchor_gap bars of each other
+    anchor_high = None
+    anchor_low = None
+
+    for hi in reversed(swing_highs):
+        for lo in reversed(swing_lows):
+            if abs(hi[0] - lo[0]) <= max_anchor_gap:
+                anchor_high = hi
+                anchor_low = lo
+                break
+        if anchor_high is not None:
+            break
+
+    if anchor_high is None or anchor_low is None:
+        return {"error": "no_valid_anchor_pair", "entry_signal": "none"}
+
+    last_high_idx, swing_high_price = anchor_high
+    last_low_idx, swing_low_price = anchor_low
+
+    move_size = swing_high_price - swing_low_price
+    if move_size <= 0:
+        return {"error": "degenerate_swing", "entry_signal": "none"}
+
+    # Anchor direction: index of the more recent pivot determines trend direction
+    if last_high_idx > last_low_idx:
+        anchor_direction = "uptrend"
+        move_start = swing_low_price
+        move_end = swing_high_price
+        bars_since_anchor = (lookback - 1) - last_high_idx
+        # Retracements: pull back DOWN from move_end
+        def retrace(ratio):
+            return round(move_end - ratio * move_size, 4)
+        # Extensions: project UP beyond move_end
+        def extend(ratio):
+            return round(move_end + ratio * move_size, 4)
+    else:
+        anchor_direction = "downtrend"
+        move_start = swing_high_price
+        move_end = swing_low_price
+        bars_since_anchor = (lookback - 1) - last_low_idx
+        # Retracements: bounce UP from move_end
+        def retrace(ratio):
+            return round(move_end + ratio * move_size, 4)
+        # Extensions: project DOWN below move_end
+        def extend(ratio):
+            return round(move_end - ratio * move_size, 4)
+
+    retracement_levels = {
+        "fib_0":   round(move_end, 4),
+        "fib_236": retrace(0.236),
+        "fib_382": retrace(0.382),
+        "fib_500": retrace(0.500),
+        "fib_618": retrace(0.618),
+        "fib_786": retrace(0.786),
+        "fib_100": round(move_start, 4),
+    }
+    extension_levels = {
+        "fib_1272": extend(0.272),   # 127.2% from move_end perspective
+        "fib_1618": extend(0.618),   # 161.8% from move_end perspective
+    }
+
+    current_price = float(close.iloc[-1])
+
+    # Nearest retracement level
+    nearest_key = min(retracement_levels, key=lambda k: abs(retracement_levels[k] - current_price))
+    nearest_price = retracement_levels[nearest_key]
+    nearest_pct_dist = round((current_price - nearest_price) / nearest_price * 100, 4)
+
+    # Which retracement levels is price at (within entry_tol)?
+    at_fib_levels = [
+        k for k, v in retracement_levels.items()
+        if abs(current_price - v) / v <= entry_tol
+    ]
+    at_golden_ratio = "fib_618" in at_fib_levels
+
+    # MA confluence: which Fib levels are within confluence_tol of SMA20/50/200?
+    ma_values = {
+        "sma20":  safe_float(sma20.iloc[-1]),
+        "sma50":  safe_float(sma50.iloc[-1]),
+        "sma200": safe_float(sma200.iloc[-1]),
+    }
+    confluence_levels = []
+    all_levels = {**retracement_levels, **extension_levels}
+    for fib_key, fib_price in all_levels.items():
+        for ma_name, ma_val in ma_values.items():
+            if ma_val is not None and abs(fib_price - ma_val) / ma_val <= confluence_tol:
+                confluence_levels.append(f"{fib_key}_near_{ma_name}")
+
+    # Explicit flag: 61.8% + MA confluence
+    fib_618_price = retracement_levels["fib_618"]
+    has_confluence_at_golden_ratio = any(
+        ma_val is not None and abs(fib_618_price - ma_val) / ma_val <= confluence_tol
+        for ma_val in ma_values.values()
+    )
+
+    # Entry signal conditions
+    rsi_current = safe_float(rsi.iloc[-1])
+    avg_vol_20 = float(volume.tail(20).mean())
+    current_vol = float(volume.iloc[-1])
+    vol_ok = (current_vol >= volume_threshold * avg_vol_20) if avg_vol_20 > 0 else False
+
+    price_at_fib_level = len(at_fib_levels) > 0
+    price_at_golden = at_golden_ratio
+
+    bull_conditions = {
+        "uptrend_anchor": anchor_direction == "uptrend",
+        "price_at_level": price_at_fib_level,
+        "rsi_below_threshold": rsi_current is not None and rsi_current < rsi_bull_threshold,
+        "volume_confirmed": vol_ok,
+    }
+    bear_conditions = {
+        "downtrend_anchor": anchor_direction == "downtrend",
+        "price_at_level": price_at_fib_level,
+        "rsi_above_threshold": rsi_current is not None and rsi_current > rsi_bear_threshold,
+        "volume_confirmed": vol_ok,
+    }
+
+    if all(bull_conditions.values()):
+        entry_signal = "bullish_entry"
+        entry_conditions = bull_conditions
+    elif all(bear_conditions.values()):
+        entry_signal = "bearish_entry"
+        entry_conditions = bear_conditions
+    else:
+        entry_signal = "none"
+        entry_conditions = bull_conditions if anchor_direction == "uptrend" else bear_conditions
+
+    # Stop-loss: next adverse Fib level
+    retrace_keys = ["fib_0", "fib_236", "fib_382", "fib_500", "fib_618", "fib_786", "fib_100"]
+    stop_loss_level = None
+    if entry_signal == "bullish_entry" and at_fib_levels:
+        # In uptrend pullback, entry near a level → stop is next level deeper (higher index)
+        deepest_entry = max(
+            (k for k in at_fib_levels if k in retrace_keys),
+            key=lambda k: retrace_keys.index(k),
+            default=None,
+        )
+        if deepest_entry:
+            idx = retrace_keys.index(deepest_entry)
+            if idx + 1 < len(retrace_keys):
+                stop_loss_level = safe_float(retracement_levels[retrace_keys[idx + 1]])
+    elif entry_signal == "bearish_entry" and at_fib_levels:
+        # In downtrend bounce, entry near a level → stop is next level DEEPER into the bounce
+        # (adverse direction = price rising further); downtrend levels are ascending so idx+1
+        deepest_bounce_entry = max(
+            (k for k in at_fib_levels if k in retrace_keys),
+            key=lambda k: retrace_keys.index(k),
+            default=None,
+        )
+        if deepest_bounce_entry:
+            idx = retrace_keys.index(deepest_bounce_entry)
+            if idx + 1 < len(retrace_keys):
+                stop_loss_level = safe_float(retracement_levels[retrace_keys[idx + 1]])
+
+    # Bars ago from end of full series (not the lookback window)
+    total_bars = len(high)
+    swing_high_bars_ago = total_bars - 1 - (total_bars - lookback + last_high_idx)
+    swing_low_bars_ago = total_bars - 1 - (total_bars - lookback + last_low_idx)
+
+    return {
+        "anchor_direction":             anchor_direction,
+        "swing_high":                   round(swing_high_price, 4),
+        "swing_high_bars_ago":          int(swing_high_bars_ago),
+        "swing_low":                    round(swing_low_price, 4),
+        "swing_low_bars_ago":           int(swing_low_bars_ago),
+        "bars_since_anchor":            int(bars_since_anchor),
+        "retracement_levels":           retracement_levels,
+        "extension_levels":             extension_levels,
+        "current_price":                round(current_price, 4),
+        "nearest_retracement":          nearest_key,
+        "nearest_retracement_price":    round(nearest_price, 4),
+        "nearest_retracement_pct_dist": nearest_pct_dist,
+        "at_fib_levels":                at_fib_levels,
+        "at_golden_ratio":              at_golden_ratio,
+        "has_confluence_at_golden_ratio": has_confluence_at_golden_ratio,
+        "confluence_levels":            confluence_levels,
+        "entry_signal":                 entry_signal,
+        "entry_conditions":             entry_conditions,
+        "stop_loss_level":              stop_loss_level,
+        "target_1_swing_end":           round(move_end, 4),
+        "target_2_ext_1272":            extension_levels["fib_1272"],
+        "target_3_ext_1618":            extension_levels["fib_1618"],
+    }
 
 
 def calculate_technicals(ticker: str, period: str = "1y") -> dict:
@@ -523,8 +907,29 @@ def calculate_technicals(ticker: str, period: str = "1y") -> dict:
         "volume_last5":         [int(x) for x in volume.tail(5).tolist()],
     }
 
+    # ── Fibonacci Retracement ─────────────────────────────────────────────────
+    result["fibonacci"] = detect_fibonacci_signals(
+        close, high, low, volume, rsi,
+        sma20, sma50, sma200,
+    )
+
     # ── Price Structure ──────────────────────────────────────────────────────
     result["price_structure"] = detect_support_resistance(close)
+    result["price_structure"]["role_reversal"] = detect_role_reversal_levels(close, high, low)
+
+    # Deduplicate: remove key_resistance/key_support entries that have flipped roles.
+    # A broken level should not appear with its old label alongside its new one.
+    _rr = result["price_structure"]["role_reversal"]
+    _flipped_prices = [f['price'] for group in _rr.values() for f in group]
+    _tol = current_price * 0.005  # 0.5% proximity tolerance
+    result["price_structure"]["key_resistance"] = [
+        r for r in result["price_structure"]["key_resistance"]
+        if not any(abs(r - fp) <= _tol for fp in _flipped_prices)
+    ]
+    result["price_structure"]["key_support"] = [
+        s for s in result["price_structure"]["key_support"]
+        if not any(abs(s - fp) <= _tol for fp in _flipped_prices)
+    ]
 
     # ── Summary Signal ───────────────────────────────────────────────────────
     bullish_signals = 0
@@ -608,6 +1013,23 @@ def calculate_technicals(ticker: str, period: str = "1y") -> dict:
     count("bollinger",
           result["volatility"]["price_vs_bb"] == "below_lower",
           result["volatility"]["price_vs_bb"] == "above_upper")
+
+    # Fibonacci entry — double weight when 61.8% + MA confluence
+    fib_result = result.get("fibonacci", {})
+    fib_entry = fib_result.get("entry_signal", "none")
+    fib_golden_confluence = bool(fib_result.get("has_confluence_at_golden_ratio"))
+    count("fibonacci_entry",
+          fib_entry == "bullish_entry",
+          fib_entry == "bearish_entry",
+          weight=2 if fib_golden_confluence else 1)
+
+    # Role-reversal structural levels — confirmed flip is a high-conviction signal
+    # (former resistance holding as support = bullish; former support capping = bearish)
+    _rr_score = result["price_structure"]["role_reversal"]
+    count("role_reversal",
+          any(f["confirmed"] for f in _rr_score["former_resistance_now_support"]),
+          any(f["confirmed"] for f in _rr_score["former_support_now_resistance"]),
+          weight=2)
 
     score = bullish_signals / total_signals if total_signals > 0 else 0.5
 
