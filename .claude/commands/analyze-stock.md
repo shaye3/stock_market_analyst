@@ -20,16 +20,16 @@ If no ticker is provided, ask the user for one before proceeding.
 Run all four Python data tools simultaneously. Execute these Bash commands:
 
 ```bash
-cd /Users/shayeyal/PycharmProjects/Stock_Analysis_System && python tools/fetch_financials.py {TICKER}
+cd /Users/shayeyal/PycharmProjects/Stock_Analysis_System && python agents/stock-analysis/tools/fetch_financials.py {TICKER}
 ```
 ```bash
-cd /Users/shayeyal/PycharmProjects/Stock_Analysis_System && python tools/calculate_technicals.py {TICKER} --period {PERIOD}
+cd /Users/shayeyal/PycharmProjects/Stock_Analysis_System && python agents/stock-analysis/tools/calculate_technicals.py {TICKER} --period {PERIOD}
 ```
 ```bash
-cd /Users/shayeyal/PycharmProjects/Stock_Analysis_System && python tools/fetch_news.py {TICKER}
+cd /Users/shayeyal/PycharmProjects/Stock_Analysis_System && python agents/stock-analysis/tools/fetch_news.py {TICKER}
 ```
 ```bash
-cd /Users/shayeyal/PycharmProjects/Stock_Analysis_System && python tools/fetch_price_data.py {TICKER} --period {PERIOD}
+cd /Users/shayeyal/PycharmProjects/Stock_Analysis_System && python agents/stock-analysis/tools/fetch_price_data.py {TICKER} --period {PERIOD}
 ```
 
 Store the JSON outputs as:
@@ -47,7 +47,7 @@ If any tool fails, note the error and proceed with available data.
 Launch all 6 agents simultaneously using the Task tool. Each agent receives the relevant data and its prompt instructions.
 
 ### Agent 1: Market Intelligence Agent
-Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/market_intelligence.md`, analyze:
+Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/stock-analysis/sub_agents/market_intelligence.md`, analyze:
 - Company profile from `NEWS_DATA.company_profile`
 - Recent news from `NEWS_DATA.recent_news`
 - Shareholders from `NEWS_DATA.shareholders`
@@ -56,7 +56,7 @@ Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_Sy
 Produce the Market Intelligence Report section.
 
 ### Agent 2: Macro Economy Agent
-Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/macro_economy.md`, analyze:
+Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/stock-analysis/sub_agents/macro_economy.md`, analyze:
 - Sector: `FINANCIALS_DATA.key_stats.sector`
 - Industry: `FINANCIALS_DATA.key_stats.industry`
 - Use WebSearch to research current macro environment, Fed policy, inflation, GDP, sector trends
@@ -64,21 +64,21 @@ Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_Sy
 Produce the Macro Economy Report section.
 
 ### Agent 3: Fundamental Analysis Agent
-Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/fundamental_analysis.md`, analyze:
+Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/stock-analysis/sub_agents/fundamental_analysis.md`, analyze:
 - All data from `FINANCIALS_DATA` (valuation, profitability, growth, balance_sheet, cash_flow, historical statements)
 - Analyst consensus from `FINANCIALS_DATA.analyst_consensus`
 
 Produce the Fundamental Analysis Report section.
 
 ### Agent 4: Technical Analysis Agent
-Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/technical_analysis.md`, analyze:
+Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/stock-analysis/sub_agents/technical_analysis.md`, analyze:
 - All data from `TECHNICALS_DATA` (trend, momentum, volatility, volume, price_structure, summary)
 - Recent price data from `PRICE_DATA.recent_90d`
 
 Produce the Technical Analysis Report section.
 
 ### Agent 5: Analyst Sentiment Agent
-Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/analyst_sentiment.md`, analyze:
+Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/stock-analysis/sub_agents/analyst_sentiment.md`, analyze:
 - Analyst consensus from `FINANCIALS_DATA.analyst_consensus`
 - Company name from `FINANCIALS_DATA.key_stats.company_name`
 - Use WebSearch to find recent analyst ratings, upgrades/downgrades, price targets for `{TICKER}`
@@ -86,7 +86,7 @@ Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_Sy
 Produce the Analyst Sentiment Report section.
 
 ### Agent 6: Risk Assessment Agent
-Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/risk_assessment.md`, analyze:
+Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/stock-analysis/sub_agents/risk_assessment.md`, analyze:
 - All available data from FINANCIALS, TECHNICALS, NEWS, and PRICE data
 - Identify and rate all material risks
 
@@ -96,7 +96,7 @@ Produce the Risk Assessment Report section.
 
 ## Step 3: Chief Investment Analyst — Final Synthesis
 
-Once all 6 agent reports are complete, act as the **Chief Investment Analyst** following `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/chief_analyst.md`.
+Once all 6 agent reports are complete, act as the **Chief Investment Analyst** following `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/stock-analysis/sub_agents/chief_analyst.md`.
 
 Synthesize all 6 reports into the complete Final Investment Report with:
 1. Executive Summary

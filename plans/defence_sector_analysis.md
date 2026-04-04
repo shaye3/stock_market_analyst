@@ -2,145 +2,242 @@
 
 ## Objective
 
-Conduct a **data-driven investment analysis** to identify the **top publicly traded defense companies** most likely to generate **alpha vs. the ITA (iShares U.S. Aerospace & Defense ETF)** across three investment horizons following the 2026 U.S.–Israel–Iran conflict.
+Conduct a **data-driven investment analysis** to identify the **top publicly traded defense companies** most likely to generate **alpha vs. the ITA (iShares U.S. Aerospace & Defense ETF) [primary benchmark] and the MSCI World Aerospace & Defense Index [secondary benchmark]** across a unified investment horizon in the context of the **2026 multi-theater global geopolitical environment** — encompassing the Middle East conflict (U.S.–Israel–Iran), the Ukraine/Russia prolonged war, Indo-Pacific deterrence escalation, Korean Peninsula tension, and European structural rearmament.
 
-**Output: Three model portfolios** — Near-term (0–6 months), Medium-term (6–18 months), Long-term (18–36 months).
+**Output: One unified model portfolio** with time-horizon designations per position (Near 0–6 months / Medium 6–18 months / Long 18–36 months), enabling dynamic rebalancing as geopolitical phases evolve.
 
 Every claim must tie to **contracts, backlog, production capacity, procurement signals, or verifiable financial data**. No narrative-only conclusions.
 
 ---
 
-## Part 1: Conflict Phase Model
+## Part 1: Multi-Theater Conflict Model
 
-The analysis must explicitly model **which companies win in which phase**. In addition to the direct U.S.–Israel–Iran bilateral conflict, model **proxy escalation vectors** as independent demand streams — they may persist after primary-conflict resolution and should not be collapsed into a single phase signal.
+The analysis must model **five concurrent geopolitical theaters** as independent demand streams. Each theater operates in its own conflict phase; their signals are **additive, not sequential**. A company exposed to multiple high-weight theaters receives a compounding demand premium.
 
-### Phase 1: Active Combat & Immediate Aftermath (0–6 months)
+### Phase Definitions
+
+#### Phase 1: Active Combat & Immediate Aftermath (0–6 months)
 - Munition consumption surge → emergency procurement
 - Winners: Existing production lines, sole-source suppliers, ISR/targeting platforms
 - Key signal: Supplemental budget requests, emergency FMS notifications
 
-**Proxy escalation vectors (model separately from bilateral conflict):**
-| Proxy Actor | Theater | Primary Demand Signal | Key Beneficiary Domain |
-|-------------|---------|----------------------|------------------------|
-| Houthi (continued) | Red Sea / Gulf of Aden | Naval escort ops, ship-defense interceptor burn, mine counter-measure | Naval & Maritime, Air Defense |
-| Hezbollah (northern front) | Lebanon/Israel border | Iron Dome/David's Sling Tamir consumption, UAV attrition, artillery | Interceptors, Munitions |
-| Iraqi militia | Iraq/Syria (force protection) | Counter-rocket/mortar (C-RAM), MRAP sustainment, short-range AD | Short-Range Air Defense, Armor |
-
-### Phase 2: Replenishment Cycle (6–18 months)
+#### Phase 2: Replenishment Cycle (6–18 months)
 - Backlog conversion → revenue acceleration
 - Winners: High-backlog companies with production scalability, Tier-2 bottleneck holders
 - Key signal: Multi-year contract awards, production rate increases, LRIP-to-FRP transitions
-- **Proxy persistence factor**: Model whether Houthi/Hezbollah operations continue at elevated tempo — affects duration of Phase 1 demand overlap into Phase 2. If proxies remain active, treat Phase 1 demand signals as additive to Phase 2 replenishment.
 
-### Phase 3: Structural Arms Race & Modernization (18–36 months)
+#### Phase 3: Structural Arms Race & Modernization (18–36 months)
 - Budget expansion → new program starts, allied procurement waves
 - Winners: Next-gen platform developers, directed energy, autonomous systems, cyber
 - Key signal: NATO spending commitments, Gulf FMS approvals, FYDP budget growth
-- **Structural proxy premium**: Persistent Iranian proxy network → structural increase in demand for layered defense systems. This is not episodic replenishment but a reclassification of threat environment by defense planners — expect budget baseline shifts, not one-time supplementals.
+
+---
+
+### Theater Overlay — Demand Weight Matrix
+
+The Theater Overlay modifies composite scores. Middle East and Eastern Europe carry the highest investment weight given active/imminent combat and confirmed legislative budget commitments. Assign each company a theater exposure score (0–1) per theater; the weighted sum produces the Theater Multiplier (see Part 4, Dimension 10).
+
+| Theater | Demand Weight | Current Phase | Investment Rationale |
+|---------|--------------|---------------|----------------------|
+| **Middle East** (U.S.–Israel–Iran, Houthi, Hezbollah, Iraq militia) | **35%** | Phase 1–2 | Active kinetic operations; interceptor burn, munitions consumption, emergency FMS; proxies may persist post-bilateral ceasefire |
+| **Eastern Europe** (Ukraine/Russia war, NATO rearmament) | **35%** | Phase 2–3 | 4th year of attrition warfare; legislatively locked-in European rearmament (Germany EUR 350B plan through 2041; Poland 5% GDP law); structural demand regardless of ceasefire |
+| **Indo-Pacific** (Taiwan Strait, AUKUS, Japan buildup, Philippines EDCA) | **20%** | Phase 3 | Japan record USD 58B FY2026 budget; AUKUS SSN program contracting; Taiwan USD 32B FMS backlog; long-cycle structural |
+| **Korean Peninsula** (DPRK–Russia arms flow, ROK buildup) | **7%** | Phase 2–3 | DPRK supplying Russia with 15M+ 155mm shells and ballistic missiles; ROK Big-4 defense order backlog exceeds USD 72B; K-Defense becoming Tier-1 NATO supplier |
+| **Sahel / Africa** | **3%** | Demand vacuum | French/US withdrawal; Russian/Chinese fill; negligible near-term Western procurement signal |
+
+**Proxy escalation vectors — model separately from primary theaters:**
+
+| Proxy Actor | Theater | Primary Demand Signal | Key Beneficiary Domain |
+|-------------|---------|----------------------|------------------------|
+| Houthi (Red Sea) | Middle East | Naval interceptor burn (SM-2/SM-6), Aegis maintenance ops, mine countermeasures | Naval & Maritime, Air Defense |
+| Hezbollah (Lebanon) | Middle East | Iron Dome/David's Sling Tamir consumption, UAV attrition, artillery replenishment | Interceptors, Munitions |
+| Iraqi militia | Middle East | C-RAM, MRAP sustainment, short-range AD | Short-Range Air Defense, Armor |
+| DPRK shells to Russia | Korea/Europe | Accelerates NATO 155mm replenishment urgency; validates ROK production scale | Munitions, Artillery |
+| Wagner/Africa Corps | Sahel | No Western procurement signal; flag as demand destruction for Africa-exposed contractors | N/A |
+
+**Structural proxy premium**: Persistent Iranian proxy network + DPRK arms supply to Russia → structural reclassification of threat environment by defense planners. Expect budget baseline shifts, not just one-time supplementals.
 
 ---
 
 ## Part 2: Full-Spectrum Warfare Domains
 
-Analyze each domain independently. For each, identify the **top 3 companies** and map the **demand drivers**:
+Analyze each domain independently. For each, identify the **top 3 companies** and map the **demand drivers**. Domains are weighted in scoring by theater phase relevance.
 
 ### 1. Air Defense & Missile Systems
-- Interceptors: PAC-3, Tamir, SM-6, Arrow, David's Sling, THAAD
-- Precision-guided munitions: JDAM, SDB, JASSM, LRASM
+- Interceptors: PAC-3 MSE, Tamir (Iron Dome), SM-6, SM-3, Arrow, David's Sling, THAAD, NASAMS, IRIS-T
+- Precision-guided munitions: JDAM, SDB, JASSM/JASSM-ER, LRASM, ATACMS, HIMARS GMLRS
 - Directed energy: laser systems, high-power microwave
-- **Cost asymmetry**: Quantify cost-per-interceptor vs. cost-per-threat (e.g., Tamir ~$50K vs. Houthi drone ~$2K)
+- **Cost asymmetry**: Quantify cost-per-interceptor vs. cost-per-threat (e.g., Tamir ~$50K vs. Houthi drone ~$2K; SM-6 ~$4M vs. Houthi ballistic missile ~$10–30K)
+- **Ukraine signal**: NATO $5.5B COMLOG Patriot contract (Germany, Netherlands, Romania, Spain); LMT scaling PAC-3 MSE to 2,000/yr
 
 ### 2. Cyber & Electronic Warfare
 - Offensive cyber capabilities
-- Defensive network security (military-grade)
+- Defensive network security (military-grade), CMMC compliance mandates
 - Electronic countermeasures and jamming
 - Signals intelligence (SIGINT)
+- **Recurring revenue model**: distinguish PLTR/LDOS/BAH/CACI revenue recurrence profiles explicitly
 
 ### 3. Space & Satellite ISR
 - Reconnaissance and surveillance satellites
 - Space situational awareness
 - Protected communications (SATCOM)
 - GPS resilience / anti-jamming
+- **SDA Tranche awards**: NOC and LHX primary competitors; Tranche 2–3 contract timelines are near-term catalysts
+- Track Space Force budget growth; SDA constellation proliferation
 
 ### 4. Naval & Maritime Domain
-- Red Sea / Strait of Hormuz chokepoint defense
-- Anti-ship missiles and counter-measures
+- Red Sea / Strait of Hormuz / South China Sea chokepoint defense
+- Anti-ship missiles and countermeasures: LRASM (LMT), Naval Strike Missile/NSM (Kongsberg/RTX), Harpoon (BA)
 - Mine warfare and undersea systems
-- Naval air defense (Aegis, ship-based interceptors)
-- **Proxy vector note**: Houthi Red Sea campaign has a structural demand tail independent of Iran ceasefire. Model separately.
+- Naval air defense (Aegis/SPY-6, ship-based interceptors)
+- **AUKUS**: SSN-AUKUS submarine program — HII Newport News, GD Electric Boat are named principal contractors; AUD 310M paid to Rolls-Royce for nuclear propulsion long-lead items
+- **Proxy vector**: Houthi Red Sea campaign has structural demand tail independent of Iran ceasefire. Model separately.
 
 ### 5. Autonomous Systems & Counter-UAS
 - Tactical drones (loitering munitions, ISR)
-- Counter-UAS systems (kinetic and non-kinetic)
+- Counter-UAS systems (kinetic and non-kinetic): SmartShooter SMASH, KTOS directed energy, Axon Vision AI tracking
 - Swarm defense capabilities
 - Drone-as-a-service / attritable platforms
+- **Drone-Slayer Index**: Rank cost-per-interception, magazine depth, scalability vs. swarm threat
 
 ### 6. AI, Software & C4ISR
 - Battlefield management / decision support
 - AI-enabled targeting and sensor fusion
 - Data analytics / intelligence platforms
 - Command, control, communications
+- **Recurring revenue filter**: distinguish subscription-based (PLTR) vs. project-based (BAH/CACI) revenue models
 
 ### 7. Supply Chain, Energetics & Logistics
-- Solid rocket motor production (critical bottleneck)
-- Energetics and propellants
+- Solid rocket motor production (critical bottleneck globally)
+- 155mm artillery shell production (Ukraine-driven surge; Rheinmetall EUR 8.5B framework)
+- Energetics and propellants: nitrocellulose, TNT, ammonium perchlorate
 - Guidance systems and seekers
 - Military logistics and sustainment
+- **Energetics Bottleneck**: Map solid rocket motor supply chain end-to-end. CHG.L is the only pure-play publicly traded energetics company in the universe.
+
+### 8. Ground Forces & Armor *(Added — Ukraine/Korea theater driver)*
+- Main battle tanks: Leopard 2 (RHM.DE, KNDS), M1 Abrams (GD), K2 Black Panther (Hyundai Rotem)
+- Infantry fighting vehicles: Lynx (RHM.DE), CV90 (BAE Systems), K21 (Hanwha), Bradley (BAE)
+- Self-propelled artillery: K9 SPH (Hanwha Aerospace), PzH 2000 (RHM.DE), Caesar (Nexter/KNDS)
+- Multiple launch rocket systems: HIMARS (LMT), K239 Chunmoo (Hanwha Aerospace), MLRS
+- Armored logistics and sustainment
+- **Ukraine signal**: Poland signed $6.7B K2 contract (Hyundai Rotem, 2025); Rheinmetall EUR 10B Boxer APC award; EUR 40B Boxer Arminius option. Ground warfare rehabilitation is a structural thesis, not a spike.
 
 ---
 
 ## Part 3: Global Company Universe
 
-**Note**: This universe is a starting baseline. The analysis agent may add companies where strong procurement signal evidence or unique domain positioning warrants inclusion. Any additions must be documented with an explicit justification sentence citing the relevant contract, program, or supply chain position.
+**Note**: This universe spans ITA ETF holdings, MSCI World Aerospace & Defense constituents, IBI (4B) Israeli Defense fund holdings, and additional names where strong procurement signal evidence warrants inclusion. The analysis agent may add companies where justified with an explicit citation. Filter out civilian-aviation-only, law-enforcement-only, and firearms-only names as non-core-defense.
+
+---
 
 ### US Large-Cap
-| Ticker | Company | Primary Domain(s) |
-|--------|---------|-------------------|
-| LMT | Lockheed Martin | Missiles, Air Defense, Space |
-| RTX | RTX Corporation | Missiles, Sensors, Cyber |
-| NOC | Northrop Grumman | Space, Bombers, C4ISR |
-| GD | General Dynamics | Naval, IT, Munitions |
-| LHX | L3Harris Technologies | Space, EW, Communications |
-| BA | Boeing (Defense segment) | Aircraft, Munitions, Naval |
-| HII | Huntington Ingalls Industries | Naval Shipbuilding, Nuclear Submarines & Carriers |
 
-### US Mid/Small-Cap
 | Ticker | Company | Primary Domain(s) |
 |--------|---------|-------------------|
-| PLTR | Palantir Technologies | AI/Software, C4ISR |
-| LDOS | Leidos | IT, Cyber, Intelligence |
-| BAH | Booz Allen Hamilton | Cyber, AI, Consulting |
-| CACI | CACI International | Cyber, SIGINT, EW |
-| KTOS | Kratos Defense | Drones, Directed Energy, Attritable Targets |
-| AVAV | AeroVironment | Tactical Drones, Loitering Munitions |
+| LMT | Lockheed Martin | Missiles, Air Defense, Space, F-35 |
+| RTX | RTX Corporation | Missiles (Patriot/NASAMS), Sensors, Engines |
+| NOC | Northrop Grumman | Space, B-21 Bomber, C4ISR, Cyber |
+| GD | General Dynamics | Naval (Electric Boat), IT, Munitions, Armored Vehicles |
+| LHX | L3Harris Technologies | Space, EW, Communications, C4ISR |
+| BA | Boeing (Defense) | Aircraft (F-15EX, P-8A), Munitions, Naval |
+| HII | Huntington Ingalls Industries | Nuclear Submarines, Carriers (sole builder) |
+| GE | GE Aerospace | Military jet engines (F414, T901, F110), propulsion |
+| TXT | Textron | Bell helicopters (V-22, AH-1Z), Shadow UAV, combat vehicles |
+
+### US Mid-Cap
+
+| Ticker | Company | Primary Domain(s) |
+|--------|---------|-------------------|
+| PLTR | Palantir Technologies | AI/Software, C4ISR, battlefield analytics |
+| LDOS | Leidos | IT, Cyber, Intelligence systems |
+| BAH | Booz Allen Hamilton | Cyber, AI consulting, NSA/IC mission |
+| CACI | CACI International | Cyber, SIGINT, EW services |
+| KTOS | Kratos Defense | Drones (UTAP-22), Directed Energy, Attritable Targets |
+| AVAV | AeroVironment | Tactical Drones (Switchblade, Puma), Loitering Munitions |
 | TDG | TransDigm Group | Proprietary Aerospace Components, Sole-Source Supply Chain |
+| BWXT | BWX Technologies | Naval nuclear reactors (sole provider for all Virginia/Columbia-class submarines) |
+| CW | Curtiss-Wright | Defense electronics, naval systems, reactor controls |
+| DRS | Leonardo DRS | Ground systems, vetronics, sensor fusion |
+| HWM | Howmet Aerospace | Aerostructures, engine components, specialty alloys |
+| HEI | HEICO Corporation | FAA-certified aerospace replacement parts, defense MRO |
+| PSN | Parsons Corporation | Defense engineering, cyber, space, missile defense |
+
+### US Small-Cap
+
+| Ticker | Company | Primary Domain(s) |
+|--------|---------|-------------------|
 | MRCY | Mercury Systems | Embedded Defense Electronics, Secure Signal Processing |
 | MOG.A | Moog Inc. | Precision Actuation, Missile Guidance, Flight Controls |
 | TDY | Teledyne Technologies | Sensors, FLIR, Undersea Detection, ISR |
+| RKLB | Rocket Lab | Small launch vehicles, space systems, satellite buses |
+| KRMN | Karman Holdings | Hypersonic/space structural components (emerging) |
+| NPK | National Presto Industries | Defense products (mortar fuzes) — sole-source energetics |
+| VVX | V2X Inc. | Military logistics, vehicle sustainment, base operations |
+| RCAT | Red Cat Holdings | Small tactical drones, counter-UAS (attritable) |
 
-### Israel
-| Ticker | Company | Primary Domain(s) |
-|--------|---------|-------------------|
-| ESLT | Elbit Systems | Drones, EW, C4ISR, Air Defense |
+---
 
-*Note: Rafael Advanced Defense Systems and Israel Aerospace Industries (IAI) are government-owned and not publicly traded. Elbit captures Israeli defense innovation exposure. Monitor for IAI IPO signals.*
+### Israel *(IBI 4B Defense Fund universe — up to 12 names)*
+
+| Ticker | Company | Exchange | Primary Domain(s) |
+|--------|---------|----------|-------------------|
+| ESLT | Elbit Systems | NASDAQ / TASE | Drones, EW, C4ISR, Air Defense, Land Systems, Night Vision |
+| SMSH | SmartShooter | TASE | AI fire-control (SMASH), counter-drone (recent IPO Mar 2026) |
+| ARCS | Aeronautics Ltd. | TASE | Tactical UAVs (Dominator, Orbiter, Aerostar) |
+| ARYT | Aryt Industries | TASE | Electronic fuzes for artillery, mortars, rockets |
+| ORBI | Orbit Technologies | TASE | Satellite comms for aviation/maritime/land (KTOS acquisition pending) |
+| ISI | ImageSat International | TASE | Satellite ISR (EROS reconnaissance satellites, geospatial analytics) |
+| AXN | Axon Vision | TASE | AI computer vision for target detection/tracking, counter-drone |
+| ISHI | Israel Shipyards | TASE | Naval patrol/missile boats |
+| ASHO | Ashot Ashkelon Industries | TASE | Merkava tank components, landing gear, transmission systems |
+| BSEN | Bet Shemesh Engines | TASE | Military jet engine MRO components |
+| PCBT | P.C.B. Technologies | TASE | PCBs for radar, UAV, EW, space applications |
+| FBRT | FMS Enterprises Migun | TASE / OTC | Ballistic protection materials, vehicle/aircraft/personnel armor |
+
+*Monitor IAI (Israel Aerospace Industries) for TASE IPO — government-owned; 25–30% float proposed. If listed, would be the largest Israeli defense addition to this universe. Rafael is state-owned and will not list in the near term.*
+
+---
 
 ### Europe
-| Ticker | Company | Primary Domain(s) |
-|--------|---------|-------------------|
-| RHM.DE | Rheinmetall | Munitions, Vehicles, Air Defense |
-| BA.L | BAE Systems | Naval, EW, Munitions, Cyber |
-| SAAB-B.ST | Saab AB | Radar, EW, Submarines, C4ISR |
-| LDO.MI | Leonardo | Helicopters, Electronics, Cyber |
-| HO.PA | Thales | Radar, Space, Cyber, Communications |
-| CHG.L | Chemring Group | Energetics, Propellants, Countermeasures (pure-play) |
+
+| Ticker | Company | Exchange | Country | Primary Domain(s) |
+|--------|---------|----------|---------|-------------------|
+| RHM.DE | Rheinmetall | Frankfurt | Germany | 155mm shells, Lynx IFV, Boxer APC, Leopard 2 components, air defense |
+| HAG.DE | Hensoldt | Frankfurt | Germany | Radar, optronics, EW sensors — pure-play German Zeitenwende |
+| MTX.DE | MTU Aero Engines | Frankfurt | Germany | EJ200 (Eurofighter), TP400 (A400M), military engine MRO |
+| BA.L | BAE Systems | London | UK | Typhoon, naval vessels, CV90 IFV, ammunition, cyber |
+| RR.L | Rolls-Royce | London | UK | Typhoon engines, nuclear submarine propulsion (AUKUS), Trent defense |
+| BAB.L | Babcock International | London | UK | Naval support, submarine maintenance (UK MoD core supplier) |
+| QQ.L | QinetiQ Group | London | UK | Defense R&D, testing, autonomy, cyber (UK DSTL equivalent) |
+| CHG.L | Chemring Group | London | UK | Energetics, propellants, countermeasures (pure-play energetics) |
+| AIR.PA | Airbus SE | Paris | France/NL | A400M transport, C295, Eurofighter (Airbus component), space |
+| SAF.PA | Safran SA | Paris | France | M88 engine (Rafale), optronics, EW, nacelles, avionics |
+| AM.PA | Dassault Aviation | Paris | France | Rafale (FMS wave to Greece, Croatia, UAE, India, Indonesia) |
+| HO.PA | Thales | Paris | France | Radar, Space, Cyber, Communications, naval sonar |
+| LDO.MI | Leonardo | Milan | Italy | Helicopters (AW139/AW101), electronics, aircraft, cyber |
+| SAAB-B.ST | Saab AB | Stockholm | Sweden | Gripen fighter, radar, submarines (A26), C4ISR, EW |
+| KOG.OL | Kongsberg Gruppen | Oslo | Norway | NASAMS (co-produced with RTX, Ukraine key system), Naval Strike Missile, JSM |
+
+---
 
 ### Asia-Pacific
-| Ticker | Company | Primary Domain(s) |
-|--------|---------|-------------------|
-| 012450.KS | Hanwha Aerospace | Artillery, Munitions, Space |
 
-**Currency risk note**: European names (EUR/GBP/SEK) and Korean names (KRW) carry FX exposure vs. USD. Estimated FX impact must be reported per non-USD position. Flag if aggregate non-USD exposure in any portfolio exceeds 30% — recommend hedging assessment.
+| Ticker | Company | Exchange | Country | Primary Domain(s) |
+|--------|---------|----------|---------|-------------------|
+| 012450.KS | Hanwha Aerospace | Korea SE | South Korea | K9 SPH artillery, K239 Chunmoo MLRS, aero engines, satellites |
+| 047810.KS | Korea Aerospace Industries (KAI) | Korea SE | South Korea | KF-21 Boramae fighter, FA-50 light attack, T-50 trainer export |
+| 064350.KS | Hyundai Rotem | Korea SE | South Korea | K2 Black Panther MBT ($6.7B Poland contract), K21 IFV |
+| 272210.KS | Hanwha Systems | Korea SE | South Korea | Radar, EW, phased array, space surveillance |
+| 079550.KS | LIG Nex1 | Korea SE | South Korea | Cheongung II SAM, Harpoon-equivalent Korean missiles, EW |
+| 7011.T | Mitsubishi Heavy Industries | TSE | Japan | F-35 licensed production, Type destroyer systems, space launch |
+| 7012.T | Kawasaki Heavy Industries | TSE | Japan | Submarines (Soryu/Taigei-class), OH-1 helicopter, defense vehicles |
+| 7013.T | IHI Corporation | TSE | Japan | F-35 engine components, F-15J engines, military aero propulsion |
+| CAE.TO | CAE Inc. | TSX | Canada | Military/civil flight simulators, mission training systems |
+
+**Currency risk note**: European names (EUR/GBP/SEK), Korean names (KRW), Japanese names (JPY), and Canadian names (CAD) carry FX exposure vs. USD. Estimated FX impact must be reported per non-USD position. Flag if aggregate non-USD exposure in the portfolio exceeds 30% — recommend hedging assessment.
+
+**Valuation context for European names**: Rheinmetall (RHM.DE) has re-rated dramatically post-2022 and may be trading near or above 40x P/E — flag explicitly against the hard gate (Part 5). Assess whether backlog acceleration (>20% YoY) justifies the premium before inclusion.
 
 ---
 
@@ -149,15 +246,17 @@ Analyze each domain independently. For each, identify the **top 3 companies** an
 For **each company** in the universe, score on the following dimensions (1–5 scale):
 
 ### Dimension 1: Replenishment Exposure
-- % of revenue directly tied to depleted munition categories
+- % of revenue directly tied to depleted munition categories (interceptors, 155mm, HIMARS, naval)
 - Emergency procurement eligibility (sole-source, existing IDIQs)
 
 ### Dimension 2: Domain Breadth & Relevance
-- Weighted by phase: Phase 1 domains (air defense, munitions) weighted 3x in near-term portfolio; Phase 3 domains (cyber, AI, space) weighted 3x in long-term portfolio
+- Weighted by phase relevance to current theater mix
+- Near-term: Air Defense, Munitions, Ground Forces weighted 2x
+- Long-term: Cyber, AI, Space, Autonomous Systems weighted 2x
 
 ### Dimension 3: Moat / Sole-Source Position
 - Sole-source contracts or irreplaceable technology
-- Controls critical bottleneck (rocket motors, seekers, guidance)
+- Controls critical bottleneck (rocket motors, nuclear reactors, seekers, guidance, energetics)
 - ITAR/export control barriers to entry
 
 ### Dimension 4: Production Scalability
@@ -182,10 +281,10 @@ For **each company** in the universe, score on the following dimensions (1–5 s
 ### Dimension 8: Allied Export Potential
 - FMS pipeline exposure
 - NATO/Gulf/Asia-Pacific procurement eligibility
-- Joint venture or offset agreement participation
+- Joint venture or offset agreement participation (e.g., SAMI JVs, Polish offset, Romanian hub)
 
 ### Dimension 9: Fundamental Financial Quality
-High defense-thesis composite scores are insufficient if the company is financially deteriorating. This dimension acts as a quality filter.
+High defense-thesis composite scores are insufficient if the company is financially deteriorating.
 
 **Profitability:**
 - Gross margin, operating margin, net margin — note trend direction (expanding / stable / contracting)
@@ -220,34 +319,54 @@ High defense-thesis composite scores are insufficient if the company is financia
 | 2 | Elevated leverage (D/E >2x) or FCF constrained or declining margins |
 | 1 | Financially stressed — debt servicing at risk, negative FCF trend, or material restatement risk |
 
+### Dimension 10: Theater Exposure (Overlay Multiplier — NEW)
+Map each company's revenue exposure to each of the five theaters. Assign a theater exposure score (0 = no exposure, 1.0 = dominant exposure) per theater. Multiply by theater demand weights (Part 1 matrix) to produce a **Theater Weighted Exposure Score (TWES)** per company.
+
+**TWES formula:**
+TWES = (Middle East exposure × 0.35) + (Eastern Europe exposure × 0.35) + (Indo-Pacific exposure × 0.20) + (Korean Peninsula exposure × 0.07) + (Sahel exposure × 0.03)
+
+**Theater Multiplier:** Map TWES to composite score adjustment:
+| TWES Range | Theater Multiplier |
+|------------|-------------------|
+| 0.00 – 0.10 | 0.85x (limited theater relevance) |
+| 0.11 – 0.25 | 0.95x |
+| 0.26 – 0.40 | 1.00x (neutral) |
+| 0.41 – 0.55 | 1.05x |
+| 0.56 – 0.70 | 1.10x |
+| >0.70 | 1.15x (dominant multi-theater exposure) |
+
+**Final Adjusted Score** = Composite Score × Theater Multiplier
+
 ---
 
 ### Output Format (MANDATORY per company):
 
-| Company | Ticker | Replenishment (1-5) | Domain (1-5) | Moat (1-5) | Scalability (1-5) | Backlog (1-5) | Time-to-Rev (1-5) | Valuation (1-5) | Export (1-5) | Fundamentals (1-5) | Composite (Near) | Composite (Mid) | Composite (Long) |
-|---------|--------|---------------------|--------------|------------|--------------------|---------------|--------------------|-----------------|--------------|--------------------|-----------------|-----------------|------------------|
+| Company | Ticker | Replenishment (1-5) | Domain (1-5) | Moat (1-5) | Scalability (1-5) | Backlog (1-5) | Time-to-Rev (1-5) | Valuation (1-5) | Export (1-5) | Fundamentals (1-5) | Composite | TWES | Theater Multiplier | Adjusted Score |
+|---------|--------|---------------------|--------------|------------|--------------------|---------------|--------------------|-----------------|--------------|--------------------|-----------|------|-------------------|----------------|
 
-**Composite Score** = Weighted average. Weights vary by portfolio horizon:
+**Composite Score** = Weighted average using **unified portfolio weights** (single set, horizon-agnostic):
 
-| Dimension | Near-Term Weight | Medium-Term Weight | Long-Term Weight |
-|-----------|-----------------|-------------------|-----------------|
-| Replenishment | 25% | 5% | 0% |
-| Scalability | 18% | 10% | 14% |
-| Time-to-Revenue | 17% | 8% | 0% |
-| Moat | 15% | 18% | 20% |
-| Valuation | 15% | 18% | 11% |
-| Fundamentals | 10% | 12% | 12% |
-| Backlog | 0% | 22% | 8% |
-| Export | 0% | 18% | 18% |
-| Domain | 0% | 12% | 25% (phase-weighted) |
-| **Total** | **100%** | **100%** | **100%** |
+| Dimension | Unified Portfolio Weight |
+|-----------|------------------------|
+| Moat | 18% |
+| Valuation | 15% |
+| Domain | 15% |
+| Scalability | 14% |
+| Fundamentals | 12% |
+| Export | 10% |
+| Backlog | 8% |
+| Replenishment | 5% |
+| Time-to-Revenue | 3% |
+| **Total** | **100%** |
 
-**Tie-breaking rule**: When two companies have equal composite scores (within 0.1 points), rank by:
+**Then apply Theater Multiplier to get Adjusted Score.**
+
+**Tie-breaking rule**: When two companies have equal adjusted scores (within 0.1 points), rank by:
 1. Valuation score — prefer the cheaper name
 2. Fundamentals score — prefer the financially stronger name
-3. Moat score — prefer the more defensible business
+3. Theater Multiplier — prefer the company with higher multi-theater exposure
 
-**Hard gate override**: Any company triggering a valuation hard gate (Part 5) is excluded from portfolio consideration regardless of composite score.
+**Hard gate override**: Any company triggering a valuation hard gate (Part 5) is excluded from portfolio consideration regardless of adjusted score.
 
 ---
 
@@ -258,14 +377,17 @@ High defense-thesis composite scores are insufficient if the company is financia
 - **EV/EBITDA > 25x** AND free cash flow yield < 2%
 - Stock price > 30% above 52-week average with no new contract catalyst
 
+**European valuation flag**: Rheinmetall (RHM.DE) has re-rated to potentially 35–45x P/E territory post-2024. Apply hard gate check explicitly. Document whether backlog growth (EUR 135B projected 2026 backlog, +20%+ YoY) satisfies the acceleration exception. Same applies to Hanwha Aerospace (012450.KS) given 42% revenue growth and valuation re-rating.
+
 ### Soft Gates (flag with warning, do not exclude)
-- P/E > 30x (above sector median ~22x for large-cap defense)
+- P/E > 30x (above sector median ~22x for large-cap US defense; note European/Korean names may trade at higher multiples structurally)
 - EV/Revenue > 4x for services companies, > 3x for hardware
 - Insider selling > $10M in trailing 90 days
 
 ### Relative Valuation Ranking
 - Rank all universe companies by: EV/EBITDA, P/FCF, PEG ratio
-- Identify: **cheapest names with highest composite scores** = best risk/reward
+- Benchmark: US names vs. ITA constituents; International names vs. MSCI World Aerospace & Defense peers
+- Identify: **cheapest names with highest adjusted scores** = best risk/reward
 - Flag: **expensive names with high scores** = "great company, bad price" risk
 
 ### Valuation Score (1–5):
@@ -277,185 +399,218 @@ High defense-thesis composite scores are insufficient if the company is financia
 
 ---
 
-## Part 6: Three Model Portfolios (Final Output)
+## Part 6: Unified Model Portfolio
 
-### Portfolio A: Near-Term Tactical (0–6 months)
-- **Theme**: Immediate beneficiaries of combat consumption and emergency procurement
-- **Selection**: Top 8 companies by near-term composite score
-- **Beta target**: Portfolio β > 1.2 vs. ITA (maximize tactical upside capture)
-- **Allocation**:
-  - Core positions (60%): Top 4 large-cap, equal weight
-  - Growth positions (25%): 2-3 mid-cap with highest replenishment exposure
-  - Speculative (15%): 1-2 small-cap with asymmetric upside
-- **Entry trigger**: Confirmed supplemental budget or emergency FMS notification
-- **Exit trigger**: Replenishment contracts fully priced in (P/E expansion > 40% from entry)
-- **Rebalancing trigger**: Any position deviates >25% from target allocation; OR supplemental budget fully appropriated; OR new hard gate hit
+### One Portfolio — Multi-Horizon
 
-### Portfolio B: Medium-Term Replenishment (6–18 months)
-- **Theme**: Backlog conversion, production ramp, allied procurement wave
-- **Selection**: Top 8 companies by medium-term composite score
-- **Beta target**: Portfolio β 0.9–1.2 vs. ITA (balanced upside/stability)
-- **Allocation**: Same structure as Portfolio A
-- **Entry trigger**: Multi-year contract awards, production rate increases
-- **Exit trigger**: Backlog growth rate decelerates below 10% YoY; margin compression from scaling costs confirmed in earnings
-- **Rebalancing trigger**: Any position deviates >25% from target allocation; OR backlog growth rate decelerates below 10% YoY
+Replace the previous three separate portfolios with a **single unified portfolio** that positions across all time horizons simultaneously. Each position carries a primary time-horizon tag; the portfolio rebalances as signals evolve.
 
-### Portfolio C: Long-Term Structural (18–36 months)
-- **Theme**: Next-gen warfare platforms, structural budget expansion, paradigm shifts
-- **Selection**: Top 8 companies by long-term composite score
-- **Beta target**: Portfolio β 0.8–1.1 vs. ITA (quality-growth with stability)
-- **Allocation**: Same structure as Portfolio A
-- **Entry trigger**: New program milestones (EMD awards, LRIP contracts), NATO spending pledges, FYDP growth confirmation
-- **Exit trigger**: Program cancellation risk, political de-escalation signal, FYDP budget revision signaling cuts
-- **Rebalancing trigger**: Any position deviates >25% from target allocation; OR FYDP revision signals program-level cuts
+**Portfolio Theme**: Geopolitical Multi-Theater Alpha — capturing demand signals from active combat (Middle East), structural rearmament (Europe), and long-cycle deterrence buildup (Indo-Pacific/Korea) in a single construct.
 
-### Portfolio Constraints (apply to all):
+**Selection**: Top 12–15 companies by Adjusted Score (Composite × Theater Multiplier), subject to hard gate and constraints below.
+
+**Allocation Structure:**
+
+| Tranche | Allocation | Positions | Horizon Tag | Profile |
+|---------|-----------|-----------|-------------|---------|
+| **Core — Cross-Theater Primes** | 50% | 5–6 | Near + Medium | Companies with TWES > 0.40 serving ≥2 high-weight theaters; large-cap, high moat |
+| **Tactical — Near-Term Catalysts** | 25% | 3–4 | Near (0–6 mo) | Highest Replenishment + Time-to-Revenue scores; emergency procurement beneficiaries |
+| **Structural — Long-Cycle Builders** | 25% | 3–4 | Long (18–36 mo) | Highest Domain + Export + Backlog scores; next-gen platforms, allied procurement waves |
+
+**Portfolio Beta Target**: 1.0–1.2 vs. ITA (balanced alpha capture with manageable volatility)
+
+**Entry Trigger (portfolio-wide)**: Confirmed supplemental budget introduction OR major contract award to a Core position company. Do not front-run — enter when signal is confirmed.
+
+**Exit Triggers:**
+- Hard gate hit by any position → immediate exit that position
+- Core position's Adjusted Score drops below 3.0 on re-score → review and consider exit
+- Geopolitical de-escalation signal (ceasefire + confirmed budget plateau) → reduce Tactical tranche by 50%; hold Core and Structural
+- Congressional sequestration/CR → downgrade Time-to-Revenue scores for affected companies; may trigger Tactical tranche reduction
+
+**Rebalancing Trigger**: Any position deviates >25% from target allocation weight; OR any Dimension 10 theater weight changes by >10pp (e.g., Middle East theater ceasefire confirmed → reduce Middle East weight, re-score all companies)
+
+### Portfolio Constraints (mandatory):
 - Max single position: 15%
-- Min geographic diversification: at least 2 non-US names
+- Min geographic diversification: at least 3 non-US names across Core + Structural tranches
 - No more than 3 companies from the same warfare domain
-- **Max single-domain concentration: 40%** (e.g., missiles/munitions domain cannot exceed 40% of portfolio weight)
+- **Max single-domain concentration: 40%** (e.g., missiles/munitions cannot exceed 40% of portfolio weight)
 - Valuation hard gates must be respected
-- **Currency risk**: Non-USD positions must include estimated FX impact. Flag portfolios with >30% non-USD exposure for hedging assessment.
-- **Beta check**: After construction, compute portfolio beta vs. ITA. If outside target range for the horizon, rebalance between core/growth/speculative tiers until target is achieved.
+- **Currency risk**: Non-USD positions must include estimated FX impact. Flag portfolio if >30% non-USD exposure for hedging assessment.
+- **Beta check**: After construction, compute portfolio beta vs. ITA and vs. MSCI World Aerospace & Defense. If outside target range, rebalance between tranches.
+
+### Scenario Analysis (mandatory per final output):
+
+| Scenario | Probability (analyst estimate) | Impact on Portfolio | Key Actions |
+|----------|-------------------------------|--------------------|-----------  |
+| **Base case** | 45% | Orderly replenishment, European rearmament on schedule, Indo-Pacific buildup proceeds | Hold structure; monitor quarterly re-score |
+| **Multi-theater escalation** | 25% | Iran conflict widens + Ukraine offensive; supply constraints tighten | Increase Tactical tranche; flag Scalability constraints |
+| **Middle East de-escalation** | 20% | Ceasefire signed; reduce Middle East theater weight to 15%; Europe absorbs share | Rotate Core toward Europe/Indo-Pacific names; reduce Middle East Tactical |
+| **US budget sequestration / CR** | 10% | Congressional gridlock; CR freezes new program starts for US names | Downgrade Time-to-Revenue across US Tactical tranche; increase European/Korean weight |
 
 ---
 
 ## Part 7: Data Sources (Signal Only)
 
 ### Institutional Analysts
-- Jonathan Siegmann, Louie DiPalma, Alek Jovovic
+- Jonathan Siegmann, Louie DiPalma, Alek Jovovic (US defense)
+- European sell-side: Bernstein, Deutsche Bank, Jefferies London (European defense)
 
 ### Think Tanks & Policy Research
-- Chatham House, Atlantic Council, CSIS, RAND Corporation
+- Chatham House, Atlantic Council, CSIS Defense360, RAND Corporation, IISS Military Balance, CNAS
 
 ### Data Platforms
 - SIPRI (arms transfers), IISS (military balance), Jane's Defence
 
 ### Procurement Signal Sources
-- SAM.gov (US contract awards)
-- Defense Security Cooperation Agency (DSCA FMS notifications)
-- NATO Support and Procurement Agency (NSPA)
-- Congressional Budget Justification Books (FYDP data)
-- HASC / SASC markup calendars and hearing transcripts
+- **US**: SAM.gov, Defense Security Cooperation Agency (DSCA FMS notifications), Pentagon contract announcements (defense.gov/News/Contracts), HASC/SASC markups, FYDP Congressional Budget Justification Books
+- **European**: NATO Support and Procurement Agency (NSPA), EU EDIP programme announcements (defence-industry-space.ec.europa.eu), national defense ministry contract notices (German BWB, UK MoD, French DGA)
+- **Korean**: DAPA (Defense Acquisition Program Administration) contract announcements
+- **Japanese**: Acquisition, Technology & Logistics Agency (ATLA) contract notices
+- **Israeli**: Israeli MoD contract notices, TASE regulatory filings (company announcements)
 
 ### Company Filings
-- 10-K/10-Q (backlog data, segment revenue, goodwill/pension disclosures)
+- 10-K/10-Q (US), Annual Reports (European/Korean/Japanese)
+- Backlog data, segment revenue, goodwill/pension disclosures
 - Earnings call transcripts (production rate commentary, constraint language)
-- Proxy statements (insider transactions)
+- Proxy statements / insider transactions
 
 ### Market Signals
 - **Options flow**: Elevated call volume or unusual open interest in defense names often leads contract announcements by 5–15 trading days
-- **Institutional 13F filings**: Defense sector weight changes by top funds (quarterly, 45-day lag)
-- **Short interest trends**: Rising short interest in specific names = market skepticism worth investigating before entering position
+- **Institutional 13F filings**: Defense sector weight changes (quarterly, 45-day lag)
+- **Short interest trends**: Rising short interest = market skepticism worth investigating
 
 ---
 
 ## Part 8: Advanced Research Heuristics (Edge Layer)
 
 ### 1. "Energetics Bottleneck"
-- Map the **solid rocket motor supply chain** end-to-end
-- Identify hidden Tier-2 winners: motor casings, propellant chemistry suppliers, nozzle manufacturers
-- Flag any company with sole-source position on critical energetics components
-- **Company connection**: CHG.L (Chemring) is the only pure-play publicly traded energetics company in the universe — evaluate sole-source positions on propellant and countermeasure fill lines. MOG.A (Moog) controls precision actuation that feeds into guided weapon terminal phases.
+- Map the **solid rocket motor and artillery propellant supply chain** end-to-end — including in Europe (nitrocellulose, TNT, ammonium perchlorate shortages are binding constraints on 155mm shell ramp)
+- CHG.L (Chemring) is the only pure-play publicly traded energetics company in the universe
+- NPK (National Presto) holds sole-source fuze positions
+- **Ukraine-specific**: Rheinmetall's EUR 8.5B shell contract is constrained by propellant availability, not just steel or production lines — map the chemistry supply chain
 
 ### 2. "Unfunded → Emergency Flip"
 - Track programs currently on unfunded requirements lists
 - Model which are most likely to move into **supplemental budgets** post-conflict
 - Historical precedent: Post-Ukraine supplementals (2022–2024) — Stinger/Javelin replenishment went from unfunded to emergency within 60 days
-- Apply this framework to current Iranian-theater requirements: C-RAM, SHORAD, naval interceptors
+- Current theater application: C-RAM, SHORAD, naval interceptors (Middle East); 155mm shells, ATACMS, MLRS (Eastern Europe); long-range anti-ship missiles (Indo-Pacific)
 
 ### 3. Export Signal Tracking
-- Monitor Foreign Military Sales (FMS) pipeline by country
-- Track Gulf state procurement approvals (Saudi Vision 2030 defense pillar)
-- NATO member spending commitments vs. actual procurement
-- Watch for: SAMI (Saudi) and EDGE Group (UAE) joint ventures with Western primes
+- Monitor FMS pipeline by country and by theater
+- **Middle East FMS**: Gulf state procurement approvals (Saudi Vision 2030); Israel emergency replenishment
+- **European**: NATO NSPA joint procurement; bilateral awards (K9 to Norway $922M, K2 to Poland $6.7B)
+- **Indo-Pacific**: Taiwan FMS backlog ($32B); Japan ATLA awards; Philippines $2.5B FMF authorization
+- Watch for SAMI (Saudi) and EDGE Group (UAE) joint ventures with Western primes
 
 ### 4. "Drone-Slayer Index"
 - Rank counter-UAS solutions by: cost-per-interception, magazine depth, scalability vs. swarm threat
 - Compare: Kinetic (missile-based) vs. Non-kinetic (directed energy, EW, cyber)
-- Identify the "winning architecture" for layered drone defense
-- **Company connection**: KTOS (Kratos) and AVAV (AeroVironment) are primary candidates for attritable/kinetic. Evaluate MRCY (Mercury Systems) for embedded processing in counter-UAS sensor fusion platforms. KTOS directed energy programs are an asymmetric cost-per-kill bet.
+- SmartShooter (SMSH), Axon Vision (AXN) — Israeli AI counter-drone pure plays
+- KTOS directed energy programs — asymmetric cost-per-kill bet
+- RCAT (Red Cat Holdings) — small attritable counter-drone
 
 ### 5. "Cyber Escalation Premium"
 - Model the probability and impact of cyber escalation on defense IT/cyber companies
 - Track: US Cyber Command budget, CMMC compliance mandates, zero-trust adoption mandates
-- Identify companies with **recurring revenue** from cyber defense (not one-time project work)
-- Distinguish: PLTR/LDOS/BAH/CACI have different revenue recurrence profiles — map this explicitly
+- PLTR/LDOS/BAH/CACI: map recurring vs. project revenue explicitly
+- QQ.L (QinetiQ): UK classified cyber program exposure — potential underappreciated moat
 
 ### 6. "Space Vulnerability Index"
 - Assess which space assets are most at risk (LEO vs. GEO, military vs. dual-use)
-- Identify companies positioned for space resilience (proliferated LEO constellations, rapid reconstitution)
-- Track: Space Force budget growth, SDA Tranche awards (Tranche 2 and 3 contracts are near-term catalysts)
-- **Company connection**: NOC and LHX are primary SDA constellation competitors. Map Tranche award timelines.
+- Companies positioned for space resilience: proliferated LEO (RKLB as launcher), rapid reconstitution
+- SDA Tranche 2–3 contract timelines: NOC and LHX primary competitors
+- RKLB: small launch vehicle; assess defense payload manifest for classification
 
 ### 7. "Naval Chokepoint Premium"
-- Red Sea / Strait of Hormuz conflict → sustained naval defense demand regardless of Iran ceasefire
-- Map companies exposed to: shipbuilding, naval munitions, undersea systems, Aegis upgrades
-- Track: Navy shipbuilding plan, Aegis system production rates, torpedo/mine procurement
-- **Company connection**: HII is the **sole** builder of US nuclear-powered carriers and one of only two submarine builders (with GD/Electric Boat). Model Houthi campaign duration as a direct demand signal for sustained vessel maintenance and new construction. TDY (Teledyne) for undersea sonar and detection systems. RTX for SM-6/SM-3 naval interceptors.
+- Red Sea / Strait of Hormuz / South China Sea → sustained naval demand regardless of specific ceasefire
+- HII: sole builder of US nuclear-powered carriers; one of only two submarine builders (with GD/Electric Boat)
+- Kawasaki (7012.T): Japanese submarine builder — beneficiary of Japan's submarine fleet expansion
+- TDY (Teledyne): undersea sonar and detection systems
+- KOG.OL (Kongsberg): Naval Strike Missile — anti-ship weapon deployed on F-35, surface ships, submarines; sole-source for NSM
 
-### 8. "Congressional Calendar Model" (NEW)
-**Purpose**: A contract thesis without an appropriations timing model is incomplete. Budget signal and contract award are not the same event.
-
-**Key calendar dates to track annually:**
+### 8. "Congressional Calendar Model"
+**Key calendar dates:**
 | Event | Typical Timing | Investment Implication |
-|-------|---------------|----------------------|
-| President's Budget Request (PBR) | February | Sets FYDP demand signal; watch for program additions/cuts |
-| HASC/SASC markup | May–July | Authorization levels; earmarks; floor amendments |
+|-------|---------------|------------------------|
+| President's Budget Request (PBR) | February | Sets FYDP demand signal |
+| HASC/SASC markup | May–July | Authorization levels |
 | NDAA floor vote | September–December | Confirms authorization; enables FMS approvals |
-| Appropriations deadline | September 30 (FY start Oct 1) | If missed → CR activates |
-| Continuing Resolution (CR) | Oct–Jan (if applicable) | Freezes new program starts; limits production rate increases |
+| Appropriations deadline | September 30 | If missed → CR activates |
+| Continuing Resolution (CR) | Oct–Jan (if applicable) | Freezes new program starts |
 | Supplemental introduction | T+30–90 days post-conflict trigger | Watch for admin request language |
-| Supplemental signed into law | T+90–180 days (historical range) | Contract awards begin flowing T+180–270 |
+| Supplemental signed into law | T+90–180 days | Contract awards begin T+180–270 |
 
-**Supplemental budget timing model (based on Ukraine 2022 precedent):**
-- T+0: Conflict trigger event
-- T+30: Administration drafts supplemental request
-- T+90: Supplemental introduced to Congress
-- T+120–180: Signed into law
-- T+180–270: Contract awards flowing
+**European budget calendar (model separately):**
+| Event | Timing | Implication |
+|-------|--------|-------------|
+| German Defense Budget (Bundeshaushalt) | November prior year | Rheinmetall, Hensoldt forward visibility |
+| EU EDIP programme calls | Quarterly | European JV and multinational procurement |
+| NATO Defense Planning Process | Annual cycle | Allied capability targets and procurement triggers |
+| DAPA (Korea) annual procurement plan | January | Korean prime contract visibility |
 
-**Investment implication**: Near-term portfolio entry should be executed before T+90 (when supplemental language is public but market has not yet fully priced contract specifics). CR risk flag: Downgrade Time-to-Revenue score by 1 point for program-start-dependent companies during active CR periods.
-
-### 9. "Production Constraint Tracker" (NEW)
-**Purpose**: Dimension 4 (Scalability) requires understanding the actual binding constraints, not just rated capacity.
-
-**Constraint types to track per company:**
+### 9. "Production Constraint Tracker"
+**Constraint types per company:**
 | Constraint Type | Examples | Primary Affected Companies |
 |----------------|----------|--------------------------|
 | Skilled labor | Welders (shipyards), guidance assemblers | HII, RTX, GD |
-| Materials | Titanium, radiation-hardened FPGAs, specialty propellant chemistry | LMT, NOC, CHG.L |
-| Tooling lead times | Missile production tooling: 12–18 month lead from sub-suppliers | RTX, LMT |
-| Sub-tier bottlenecks | Rocket motor casings, seeker components, energetic fill lines | KTOS, CHG.L, MOG.A |
+| Materials | Titanium, radiation-hardened FPGAs, nitrocellulose, TNT | LMT, NOC, CHG.L, RHM.DE |
+| Tooling lead times | Missile production tooling: 12–18 month lead | RTX, LMT |
+| Sub-tier bottlenecks | Rocket motor casings, seeker components, energetics fill | KTOS, CHG.L, MOG.A, NPK |
+| European-specific | Skilled propellant chemists (Chemring, Nammo, Diehl — limited labor pool) | CHG.L, RHM.DE |
+| Korean/Japanese | Specialized steel for armor plate (POSCO supply tightness) | 064350.KS, 012450.KS |
 
-**Flag rule**: Any company citing a specific production constraint in earnings call language should have Scalability score capped at 3 until constraint resolution is evidenced in a subsequent quarterly filing.
+**Flag rule**: Any company citing a specific production constraint in earnings call language → cap Scalability score at 3 until constraint resolution evidenced in a subsequent quarterly filing.
+
+### 10. "Cross-Theater Demand Multiplier" *(NEW)*
+Companies exposed to **3 or more theaters simultaneously** with meaningful revenue receive a compounding demand premium that is not fully captured in individual dimension scores. These are the highest-conviction long positions because:
+- Demand diversification means no single theater ceasefire terminates the thesis
+- Volume scale enables incremental margin expansion across production runs
+- Government relationships across multiple allies create political lock-in
+
+**Cross-theater multiplier candidates** (verify with actual revenue segment data):
+| Company | Theaters | Demand Vector |
+|---------|---------|---------------|
+| LMT | Middle East + Europe + Indo-Pacific + Korea | PAC-3 (all theaters), F-35 (Japan, Netherlands), HIMARS (Ukraine/Europe), THAAD |
+| RTX | Middle East + Europe + Indo-Pacific + Korea | Patriot ($5.5B NATO + Taiwan + Korea), Tomahawk (Japan), NASAMS (Ukraine) |
+| RHM.DE | Middle East + Europe + Korea | 155mm shells (Ukraine), Lynx/Boxer (NATO), Skyranger AD, K-Defense partnership |
+| BA.L | Europe + Indo-Pacific | CV90 (Ukraine/Nordic), AUKUS naval, Typhoon, ammunition |
+| Hanwha Aerospace | Europe + Korea + Middle East | K9 SPH (Norway $922M, Romania hub), K239 Chunmoo, Gulf interest |
 
 ---
 
 ## Part 9: Regional Realignment Analysis
 
 ### Gulf Cooperation Council (Saudi Arabia, UAE, Kuwait)
-- Analyze shift toward **defense sovereignty / local manufacturing**
-- Who wins: Western primes (as JV partners) vs. local champions (SAMI, EDGE)?
+- Analyze shift toward **defense sovereignty / local manufacturing** (Saudi Vision 2030, UAE EDGE Group)
+- Who wins: Western primes (as JV partners) vs. local champions
 - Map specific JV/offset agreements and their revenue potential
-- Track Saudi Vision 2030 defense localization targets and actual procurement split
+- Track Saudi SAMI procurement split: localization target vs. actual foreign procurement
 
-### European Rearmament
-- Track national defense budget increases (Germany's Zeitenwende, Poland's 4% GDP target)
-- Identify European primes benefiting from domestic preference policies
-- Map cross-border European procurement (Eurofighter, FCAS, MGCS programs)
-- Watch for EU defense industrial base legislation creating preferential procurement for European primes
+### European Structural Rearmament *(Elevated — co-equal demand signal)*
+- **Germany Zeitenwende**: EUR 108.2B 2026 defense budget; EUR 47.9B procurement; EUR 52B Bundestag mega-package (December 2025); EUR 350B plan through 2041
+- **Poland**: 5% GDP law enacted; $6.7B K2 contract; 250 M1A2 Abrams; building toward 900-tank force by 2030
+- **Nordic/Baltic**: Sweden pledged SEK 4.7B+ additional 2026; Finland 2.5%+ GDP; Baltic states highest per-capita in NATO
+- **EU EDIP**: EUR 1.5B programme (2025–2027) — first call closes October 2026; identifies which companies win EU joint procurement (strongly favors European primes with JV structures)
+- **Domestic preference policy**: Track EU legislation creating preferential procurement for European primes; flag FMS products that may be displaced by European domestic supply (e.g., HIMARS vs. Chunmoo in European armies)
+- **Cross-border competition**: European vs. Korean defense exports now competing for the same European contracts (zero-sum in some categories — Rheinmetall Lynx vs. Hanwha Redback; HIMARS vs. K239 Chunmoo)
 
-### Asia-Pacific (Secondary)
-- South Korea as emerging defense exporter (Hanwha, Korea Aerospace Industries)
-- Japan's defense budget doubling and revised export policy (lifting of arms export restrictions)
-- Australia's AUKUS-driven procurement (SSN-AUKUS submarine program → HII/GD involvement)
+### Asia-Pacific *(Structural — Phase 3 primary driver)*
+- **Japan** ($58B FY2026): Tomahawk integration on Aegis destroyers; Izumo carrier F-35B conversion; unmanned/long-range strike priority; Japan as potential defense exporter under revised export policy
+- **AUKUS**: SSN-AUKUS submarine — HII, GD Electric Boat, Rolls-Royce (propulsion), LMT, GDMS named contractors; Australia paid AUD 310M long-lead nuclear items; multi-decade program; bipartisan lock-in in all three countries
+- **Taiwan**: $32B FMS backlog (January 2026); F-16V Block 70/72 entering delivery; PAC-3 MSE delivery 2026; potential additional $10B+ package in pipeline
+- **Philippines**: 9 EDCA sites active; Tomahawk deployed to Luzon; $2.5B FMF + $1B loans authorized; $144M EDCA infrastructure FY2026
+- **South Korea as exporter**: Big-4 defense companies (Hanwha, Hyundai Rotem, LIG Nex1, KAI) reaching $14.1B combined revenues with $72B+ backlog; South Korea approaching $23B annual export contracts, positioning as 2nd largest NATO supplier
+
+### Korean Peninsula *(Elevated from secondary — DPRK arms proliferation changes calculus)*
+- DPRK supplied Russia with 15M+ 152mm shells, 220+ artillery pieces, Hwasong-11 ballistic missiles
+- Investment implication: validates accelerated terminal-phase missile defense investment; demonstrates Korean production capability at scale (credibility for export orders); accelerates ROK domestic buildup
+- Track: KAI KF-21 Boramae export pipeline (first flight 2022, IOC target 2026); FA-50 demand; LIG Nex1 Cheongung II export orders
 
 ---
 
 ## Part 10: Fundamental Analysis Integration
 
-For each company in the universe, conduct a **focused fundamental analysis** alongside the defense-thesis scoring. The purpose is to ensure high-scoring defense plays are not undermined by financial deterioration or accounting risk.
+For each company in the universe, conduct a **focused fundamental analysis** alongside the defense-thesis scoring.
 
 ### Required Output Per Company
 
@@ -464,19 +619,20 @@ For each company in the universe, conduct a **focused fundamental analysis** alo
 - Gross margin, operating margin, net margin — expanding / stable / contracting
 - ROE (flag if <10%; defense sector median ~15–20%)
 - ROA vs. sector peers
+- Note: European/Korean companies report under IFRS; US under GAAP — normalize where necessary for comparison
 
 **Valuation Cross-Check (feeds Dimension 7):**
-- P/E trailing and forward; compare to defense sector median (~22x large-cap)
+- P/E trailing and forward; compare to defense sector median (~22x large-cap US; European/Korean names may carry different structural multiples)
 - PEG ratio: <1.0 = potential undervaluation relative to growth
-- EV/EBITDA; compare to company's own 5-year average
+- EV/EBITDA; compare to company's own 5-year average AND vs. benchmark (ITA for US; MSCI World A&D for international)
 - P/FCF; FCF yield threshold: flag if <2%
 
 **Balance Sheet Assessment:**
-- Debt/Equity — note M&A-driven leverage (RTX, LHX carry elevated D/E from Raytheon and Harris mergers respectively)
+- Debt/Equity — note M&A-driven leverage (RTX, LHX carry elevated D/E)
 - Net debt / EBITDA — flag if >4.0x
 - Current ratio — flag if <1.0
 - Interest coverage — flag if <3.0x
-- Pension liability: LMT, NOC, RTX carry large defined-benefit obligations; report annual pension service cost as % of FCF
+- Pension liability: LMT, NOC, RTX carry large defined-benefit obligations
 
 **Cash Flow Quality:**
 - OCF / Net Income ratio (>1.0 = quality earnings; <0.7 = investigate accruals)
@@ -484,9 +640,9 @@ For each company in the universe, conduct a **focused fundamental analysis** alo
 - CapEx classification: growth-driving vs. maintenance-heavy
 
 **Accounting Quality Flags:**
-- Goodwill as % of total equity (impairment risk, especially post-M&A): flag if >50%
-- Revenue recognition via percentage-of-completion (standard in defense, but flag any restatement history)
-- Segment margin disclosure gaps: flag if key segments are blended in reporting
+- Goodwill as % of total equity (flag if >50%)
+- Revenue recognition: percentage-of-completion (standard in defense, flag restatement history)
+- Segment margin disclosure gaps
 
 ### Per-Company Fundamental Verdict (mandatory output)
 ```
@@ -507,223 +663,163 @@ For each company in the universe, conduct a **focused fundamental analysis** alo
 3. **Key risk** (the single most likely reason this thesis fails)
 4. **Catalysts** (next 6–12 months, with approximate dates where possible)
 5. **Fundamental snapshot** (Financial Health, Earnings Quality, Balance Sheet Risk, FCF Yield)
-6. **Proxy exposure** (how does Houthi/Hezbollah/militia persistence affect this thesis — positively or negatively?)
-7. **Confidence score** (1–10 with brief justification)
+6. **Theater exposure map**: For each of the 5 theaters, rate exposure (0 = none, 1 = dominant). Show TWES and Theater Multiplier.
+   ```
+   Theater Exposure: Middle East [0–1] | Eastern Europe [0–1] | Indo-Pacific [0–1] | Korea [0–1] | Sahel [0–1]
+   TWES: [value] | Theater Multiplier: [value]
+   ```
+7. **Proxy exposure** (how does Houthi/Hezbollah/DPRK arms flow/militia persistence affect this thesis — positively or negatively?)
+8. **Confidence score** (1–10 with brief justification)
 
-### Per Portfolio:
-1. **Ranked list** of 8 companies with all three composite scores (near/mid/long)
-2. **Allocation breakdown** (Core / Growth / Speculative with explicit % weights)
-3. **Portfolio beta** vs. ITA — computed, not estimated; confirm it meets horizon target
-4. **Non-USD exposure** — total %, list of affected names, FX impact estimate
-5. **Entry/exit criteria** specific to that time horizon
-6. **Rebalancing trigger** conditions (explicit, not generic)
-7. **Scenario analysis**:
-   - **Base case**: Conflict contained, orderly replenishment, congressional appropriations on schedule
-   - **Escalation case**: Wider regional war, proxy persistence, emergency supplemental, production constraint acceleration
-   - **De-escalation case**: Ceasefire, defense spending plateau, supplemental delayed or reduced
-   - **CR/sequestration case**: Congressional gridlock delays appropriations — unique risk to US defense spending programs; model impact on Time-to-Revenue for each holding
+### Per Portfolio (Unified):
+1. **Full ranked list** with Adjusted Score for all analyzed companies
+2. **Portfolio composition** — the 12–15 selected companies with tranche allocation (Core / Tactical / Structural), explicit % weights, and time-horizon tags
+3. **Portfolio beta** vs. ITA (primary) and vs. MSCI World Aerospace & Defense (secondary) — computed, not estimated
+4. **Non-USD exposure** — total %, list of affected names, FX impact estimate, hedging assessment if >30%
+5. **Entry/exit criteria** for the unified portfolio (horizon-specific triggers per tranche)
+6. **Rebalancing trigger conditions** (explicit, not generic)
+7. **Scenario analysis** (4 scenarios per Part 6 table)
 
 ### Summary Output:
-- **One-page executive brief** with the single highest-conviction idea per portfolio
-- **Risk matrix**: What kills each portfolio? (de-escalation, budget sequestration, supply chain failure, congressional CR, financial deterioration at portfolio companies)
-- **Pairs/hedges**: For each portfolio, one suggested hedge (short candidate or defensive offset)
-- **Domain concentration check**: Confirm no domain exceeds 40% across each portfolio
+- **One-page executive brief** with the single highest-conviction idea in each tranche (Core / Tactical / Structural)
+- **Risk matrix**: What kills each tranche? (de-escalation, budget sequestration, supply chain failure, congressional CR, financial deterioration, theater weight shift)
+- **Pairs/hedges**: For the unified portfolio, two suggested hedges (one short candidate or defensive offset for excessive Middle East concentration; one for excessive European concentration)
+- **Domain concentration check**: Confirm no domain exceeds 40% of portfolio weight
+- **Cross-theater leaderboard**: Top 5 companies by Adjusted Score across all theaters
+- **Benchmark comparison**: Projected portfolio alpha vs. ITA AND vs. MSCI World Aerospace & Defense under base case scenario
 
 ---
 
 ## Part 12: Media Intelligence Collection Protocol
 
-**Purpose**: Part 7 lists *what* sources exist. This part explains *how* to systematically collect, classify, and act on signals from those sources. A thesis built on stale or misread intelligence is worse than no thesis at all.
+**Purpose**: Part 7 lists *what* sources exist. This part explains *how* to systematically collect, classify, and act on signals from those sources.
 
 ---
 
 ### 12.1 Source Taxonomy
 
-Rank sources by signal quality before investing time in them.
-
 **Tier 1 — Primary Sources (highest signal, lowest noise)**
-
-These are official, verifiable, and carry immediate investment relevance:
 
 | Source | What to Look For | Access Method |
 |--------|-----------------|---------------|
 | DoD Contract Announcements (defense.gov/News/Contracts) | Daily 5pm ET releases — dollar value, company, program name | RSS feed + keyword filter |
-| SAM.gov Award Search | Sole-source justifications, IDIQ task orders, emergency OTAs | Set saved searches by company CAGE code and program keywords |
+| SAM.gov Award Search | Sole-source justifications, IDIQ task orders, emergency OTAs | Saved searches by company CAGE code |
 | DSCA FMS Notifications | Country, system, dollar value — triggers export thesis | Email list at dsca.mil/press-room |
-| Company 8-K Filings (SEC EDGAR) | Material contract awards, guidance changes, leadership changes | EDGAR full-text search or RSS by CIK number |
-| Congressional Record / Congress.gov | NDAA amendment text, appropriations line items, hearing testimony | Full-text keyword search |
-| Pentagon Press Briefings (defense.gov/News/Transcripts) | Secretary/CJCS statements on procurement priorities, surge production orders | RSS + keyword scan |
+| Company 8-K Filings (SEC EDGAR) | Material contract awards, guidance changes | EDGAR RSS by CIK number |
+| Congressional Record / Congress.gov | NDAA amendment text, appropriations line items | Full-text keyword search |
+| **German BWB (Bundesamt für Ausrüstung)** | German defense contract awards | procurement.bundeswehr.de |
+| **EU EDIP Programme Announcements** | Joint procurement calls, award notifications | defence-industry-space.ec.europa.eu |
+| **Korean DAPA** | K-Defense contract awards, export approvals | dapa.go.kr (Korean) |
+| **TASE Regulatory Filings** | Israeli company material events | TASE Maya system |
 
-**Tier 2 — Trade Publications (defense-specific, high domain expertise)**
-
-Read for context, program-level detail, and procurement intent signals (RFPs, down-selects):
+**Tier 2 — Trade Publications**
 
 | Publication | Specialty | Best Signal Type |
-|-------------|-----------|-----------------|
-| Breaking Defense (breakingdefense.com) | US acquisition policy, Pentagon politics | Budget and program decisions |
-| Defense News (defensenews.com) | Industry-wide contract and program news | Contract awards, production news |
-| Aviation Week & Space Technology | Aerospace/defense technical | Program milestones, production rates |
-| The War Zone (thedrive.com/the-war-zone) | Operational/tactical, weapons employment | Conflict escalation signals, new system deployments |
-| C4ISRNET (c4isrnet.com) | Cyber, C2, ISR, EW | Cyber/EW program and contract signals |
-| Naval News (navalnews.com) | Naval systems, shipbuilding | Naval procurement and deployment signals |
-| Jane's Defence (janes.com) | Technical intelligence, order-of-battle | Sole-source identification, Tier-2 supply chain |
+|-------------|-----------|--------------------|
+| Breaking Defense | US acquisition policy | Budget and program decisions |
+| Defense News | Industry-wide contract news | Contract awards, production news |
+| Aviation Week | Aerospace/defense technical | Program milestones, production rates |
+| The War Zone | Operational/tactical | Conflict escalation signals |
+| C4ISRNET | Cyber, C2, ISR, EW | Cyber/EW program signals |
+| Naval News | Naval systems, shipbuilding | Naval procurement signals |
+| Jane's Defence | Technical intelligence | Sole-source, Tier-2 supply chain |
+| **Janes.com/European defense** | European procurement | Rheinmetall, Hanwha, Kongsberg signals |
+| **Korea Herald / Yonhap** | Korean defense exports | K-Defense export contract confirmations |
 
-**Tier 2 — Think Tanks (policy and budget analysis)**
-
-Use for budget trajectory modeling and geopolitical context — not for near-term contract signals:
-
-| Organization | Best Use |
-|-------------|---------|
-| CSIS Defense360 | Congressional defense budget analysis, NDAA tracking |
-| RAND Corporation | Technology forecasting, program risk assessment |
-| CNAS (Center for a New American Security) | Emerging technology defense applications |
-| Atlantic Council | Allied procurement, NATO spending trajectory |
-
-**Tier 2 — Financial Media**
-
-Use for valuation context and institutional sentiment — not as primary contract intelligence:
-
-- Bloomberg (defense industry tag), Reuters Defense, WSJ defense beat
-- Seeking Alpha defense articles: useful for contrarian signals; always verify underlying data
-
-**Tier 3 — Social / Sentiment (use as corroborating signal only, never primary)**
-
-| Channel | Value | Caution |
-|---------|-------|---------|
-| X/Twitter: @BreakingDefense, @defensenewsmedia, @AaronMehta, @TaraCopp | Breaking news 2–4 hours before formal release | Unverified until official source confirms |
-| LinkedIn: defense executive commentary | Occasionally signals production expansions, hiring surges | Self-promotional; verify independently |
-| r/CredibleDefense (Reddit) | Operational context, proxy theater tracking | No investment signal; use for conflict phase modeling only |
+**Tier 3 — Social / Sentiment (corroborating only, never primary)**
+- X/Twitter: @BreakingDefense, @defensenewsmedia, @AaronMehta, @TaraCopp
+- LinkedIn: defense executive commentary (verify independently)
 
 ---
 
 ### 12.2 Collection Cadence
 
-Structure your monitoring to match signal velocity. Not all sources require daily attention.
+**Real-Time (alerts)**: 8-K filings, SAM.gov awards >$50M, DSCA notifications, EU EDIP award notices, Korean DAPA releases, TASE material events
 
-**Real-Time (set alerts — no manual checking required)**
+**Daily (~15 min)**: Pentagon daily contract announcements; Breaking Defense + Defense News headlines; Korean and European defense news scanners
 
-| Alert Type | Setup Method | Trigger Condition |
-|------------|-------------|-------------------|
-| Company 8-K filings | EDGAR email alerts by CIK per universe company | Material contract or guidance change |
-| SAM.gov contract awards | Saved search by company CAGE code | Any award >$50M to a universe company |
-| DSCA FMS notifications | dsca.mil email subscription | Any notification referencing universe system |
-| Google News alerts | One alert per universe ticker + company name | Breaking news mention |
-| Pentagon contract page | RSS reader (e.g., Feedly) on defense.gov/News/Contracts | Daily 5pm release scan |
+**Weekly (~60 min)**: HASC/SASC hearing transcripts; options flow in defense names; earnings calendar (universe companies reporting within 30 days); EU EDIP programme updates
 
-**Daily (~15 minutes)**
+**Monthly (~2–3 hrs)**: DSCA FMS review + export score update; 13F institutional changes; Jane's order tracker; SIPRI quarterly data; Korean DAPA annual procurement plan updates
 
-- Scan Pentagon daily contract announcements for universe company names
-- Scan Breaking Defense and Defense News headlines
-- Check X/Twitter defense journalists for breaking program news
+**Quarterly (~4–6 hrs)**: Full 10-Q/interim report analysis per universe company; earnings call transcripts — extract constraint language; proxy filing review (insider transactions); re-score Dimension 10 (Theater Exposure) based on updated theater weight matrix
 
-**Weekly (~60 minutes)**
-
-- Review HASC/SASC hearing transcripts for program mentions (Congress.gov "Hearings" section)
-- Read Aviation Week and C4ISRNET for production rate and milestone news
-- Review options flow in defense names for unusual activity (via brokerage platform or TradingView)
-- Update earnings calendar: note any universe company reporting within next 30 days
-
-**Monthly (~2–3 hours)**
-
-- DSCA FMS notification review: compile new entries, map to export scores
-- Screen Institutional 13F changes for defense sector weight shifts (SEC EDGAR, with 45-day lag awareness)
-- Jane's order tracker: new orders placed for universe company systems by allied nations
-- Review SIPRI quarterly arms transfer data if available
-
-**Quarterly (~4–6 hours)**
-
-- Full 10-Q analysis for each universe company (mandatory fields: backlog, funded/unfunded split, segment revenue, production constraint language in MD&A and earnings call transcript)
-- Earnings call transcript review: extract specific constraint language (labor, materials, tooling) — apply Dimension 4 cap rule where triggered
-- Proxy filing review: insider transactions in trailing 90 days — apply soft gate if >$10M selling
-
-**Annually (~1 full day)**
-
-- 10-K deep review: backlog composition, segment margins, pension obligations, goodwill/impairment disclosures
-- FYDP analysis (February PBR release): line-by-line changes to defense program funding vs. prior year
-- NDAA final text analysis (December–January): authorization changes that create or eliminate programs
-- SIPRI Arms Transfers Database: annual update to allied procurement and FMS pipeline data
+**Annually (~1 full day)**: 10-K/Annual Report deep review; FYDP analysis (February PBR); NDAA final text analysis; SIPRI Arms Transfers Database; EU EDIP programme review; German Bundeshaushalt analysis (November prior year)
 
 ---
 
 ### 12.3 Signal Classification Framework
 
-Every piece of media intelligence must be classified before acting on it. Unclassified signals create noise.
-
 | Signal Class | Definition | Example |
 |-------------|-----------|---------|
-| **Contract Signal** | Specific dollar-value award to a universe company | "Raytheon awarded $1.2B IDIQ for PAC-3 interceptors" |
-| **Procurement Intent Signal** | RFI/RFP issued — indicates upcoming award, not yet booked | "DoD issues RFP for next-gen SHORAD" |
-| **Budget Signal** | Appropriations change, supplemental introduction, FYDP revision | "Senate Appropriations adds $800M for Patriot replenishment" |
-| **Production Signal** | Official rate increase/decrease, new facility, CapEx announcement | "RTX breaks ground on Tucson missile production expansion" |
-| **Export Signal** | FMS notification, allied nation procurement announcement | "DSCA notifies Congress of $3.5B Patriot sale to Poland" |
-| **Conflict Escalation Signal** | New proxy theater activation, operational tempo increase | "Houthi launches 15 drones at Red Sea shipping convoy" |
-| **Constraint Signal** | Production bottleneck disclosed by company or government | "HII CEO cites welder shortage limiting submarine delivery schedule" |
-| **Financial Risk Signal** | FCF miss, guidance cut, credit downgrade, insider selling | "MRCY cuts FCF guidance; cites program cost overruns" |
-| **Sentiment Signal** | Analyst upgrade/downgrade, institutional buying/selling | "Citi upgrades NOC to Buy with $550 PT" |
-| **Regulatory/Political Signal** | Export license denial, sanctions, program cancellation | "State Dept denies export license for drone system to Gulf ally" |
+| **Contract Signal** | Specific dollar-value award to a universe company | "Rheinmetall awarded EUR 8.5B shell contract" |
+| **Procurement Intent Signal** | RFP issued | "EU EDIP call for joint AD procurement proposals" |
+| **Budget Signal** | Appropriations change, supplemental, FYDP revision | "Germany EUR 52B Bundestag defense package signed" |
+| **Production Signal** | Rate increase/decrease, new facility | "Rheinmetall opens Lithuania 155mm plant" |
+| **Export Signal** | FMS notification, allied procurement announcement | "DSCA notifies $3.5B Patriot sale to Poland" |
+| **Conflict Escalation Signal** | New theater activation, operational tempo increase | "Houthi launches attack on US carrier group" |
+| **Constraint Signal** | Production bottleneck disclosed | "HII CEO cites welder shortage" |
+| **Financial Risk Signal** | FCF miss, guidance cut, credit downgrade | "MRCY cuts FCF guidance" |
+| **Sentiment Signal** | Analyst upgrade/downgrade | "Citi upgrades NOC to Buy" |
+| **Regulatory/Political Signal** | Export license denial, sanctions, cancellation | "State Dept denies drone export to Gulf ally" |
+| **Theater Weight Signal** | Geopolitical event that changes a theater's demand weight | "Ukraine ceasefire signed → reduce Eastern Europe weight from 35% to 15%" |
 
 ---
 
 ### 12.4 Signal-to-Score Mapping
 
-When a classified signal arrives, this table determines which scoring dimensions to update and whether a portfolio action review is required.
-
 | Signal Class | Dimension Affected | Direction | Action Required |
 |-------------|-------------------|-----------|----------------|
-| Contract Signal (sole-source, >$500M) | Moat (D3), Replenishment (D1), Time-to-Rev (D6) | Up | Re-score immediately; check entry trigger |
-| Contract Signal (<$100M or competitive) | Replenishment (D1) | Minor up | Log; re-score at next scheduled review |
-| Procurement Intent Signal (RFP issued) | Backlog (D5) — pending | Neutral | Monitor; set alert for award announcement |
-| Budget Signal (supplemental introduced) | Replenishment (D1) for named programs | Up | **Portfolio A entry trigger review** |
-| Budget Signal (CR activated) | Time-to-Rev (D6) for program-start companies | Down 1 pt | Apply CR adjustment rule immediately |
-| Budget Signal (program cut in FYDP) | Backlog (D5), Replenishment (D1) | Down | Re-score; may trigger exit |
-| Production Signal (rate increase confirmed) | Scalability (D4) | Up (remove cap if applied) | Re-score Dimension 4 |
-| Production Signal (constraint disclosed in earnings) | Scalability (D4) | Cap at 3 | Apply cap; set reminder to check next quarter |
-| Export Signal (FMS >$1B) | Export (D8) | Up | Re-score; may be Portfolio B entry trigger |
-| Conflict Escalation Signal (proxy activation) | Domain (D2), Replenishment (D1) for relevant domains | Up | Re-evaluate phase model; update proxy vector table |
-| Constraint Signal (management language) | Scalability (D4) | Cap at 3 | Apply constraint cap rule (Part 8, Heuristic 9) |
-| Financial Risk Signal (FCF miss >15%) | Fundamentals (D9) | Down | Re-score D9; check if hard gate triggered |
-| Financial Risk Signal (insider selling >$10M) | Valuation (D7) | Soft gate flag | Flag; do not exclude; watch for 30-day confirmation |
-| Sentiment Signal (analyst upgrade) | None — do not update dimensions | N/A | Log; compare analyst thesis to own; note divergence |
-| Regulatory Signal (export denial) | Export (D8) | Down sharply | Re-score; may disqualify from Portfolio C |
+| Contract Signal (sole-source, >$500M) | Moat (D3), Replenishment (D1), Time-to-Rev (D6) | Up | Re-score immediately |
+| Contract Signal (<$100M or competitive) | Replenishment (D1) | Minor up | Log; re-score at next review |
+| Budget Signal (supplemental introduced) | Replenishment (D1) for named programs | Up | Portfolio entry trigger review |
+| Budget Signal (CR activated) | Time-to-Rev (D6) for program-start companies | Down 1 pt | Apply CR adjustment immediately |
+| Production Signal (rate increase confirmed) | Scalability (D4) | Up (remove cap) | Re-score Dimension 4 |
+| Production Signal (constraint disclosed) | Scalability (D4) | Cap at 3 | Apply cap; re-check next quarter |
+| Export Signal (FMS >$1B) | Export (D8) | Up | Re-score; may trigger entry |
+| **Theater Weight Signal (ceasefire/escalation)** | **Theater Multiplier (D10)** | **Up or Down** | **Re-run TWES formula; re-score all companies in affected theater; rebalance portfolio** |
+| Conflict Escalation Signal | Domain (D2), Replenishment (D1) | Up | Update theater weight matrix |
+| Constraint Signal (management language) | Scalability (D4) | Cap at 3 | Apply constraint cap rule |
+| Financial Risk Signal (FCF miss >15%) | Fundamentals (D9) | Down | Re-score D9; check hard gate |
+| Financial Risk Signal (insider selling >$10M) | Valuation (D7) | Soft gate flag | Flag; watch 30-day confirmation |
+| Sentiment Signal (analyst upgrade) | None | N/A | Log for divergence analysis only |
 
-**Rule**: Sentiment signals (analyst upgrades, price target changes) must **never** directly update a scoring dimension. They are logged for divergence analysis only — if the market is more bullish than your own thesis, that is useful information but not a scoring input.
+**Theater Rebalancing Rule**: When a theater weight changes by >10pp (e.g., Middle East ceasefire reduces weight from 35% to 20%):
+1. Re-run TWES for all portfolio companies
+2. Re-compute Theater Multiplier for each
+3. Re-rank all Adjusted Scores
+4. Rebalance portfolio if any position deviates from target weight by >25%
 
 ---
 
 ### 12.5 Noise Filter — What to Ignore
 
-Discipline in filtering is as important as discipline in collecting.
-
 **Always ignore:**
 - Anonymous/unverified social media contract rumors (require Tier 1 source confirmation)
-- Company-issued press releases about contracts **without** DoD corroboration (check SAM.gov or defense.gov same day)
+- Company press releases without DoD/European MoD/DAPA corroboration (check official source same day)
 - Analyst price target changes with no new fundamental data cited
 - Media speculation about future programs without RFP, RFI, or budget line-item evidence
-- Stock price movement alone as a signal — price moves are an effect, not a cause
+- Stock price movement alone as a signal
 
-**Weight down (require second-source confirmation before acting):**
+**Weight down (require second-source confirmation):**
 - Single-journalist breaking defense news (wait for second outlet or official confirmation)
-- "Sources say" budget reporting without named congressional or Pentagon official
-- Earnings call management commentary about pipeline without signed contract evidence
-- International media reporting on Gulf/European procurement (translation + context risk)
-
-**Red flag for potential misinformation:**
-- Contract announcements with no SAM.gov or defense.gov matching entry within 48 hours
-- FMS "leaks" before formal DSCA notification (DSCA process is standardized; pre-notification leaks are rare and often inaccurate)
+- "Sources say" budget reporting without named official
+- Earnings call pipeline commentary without signed contract evidence
+- International media reporting on Korean/Japanese procurement (translation + context risk)
 
 ---
 
 ### 12.6 Immediate Action Trigger List
 
-The following media signals require same-day portfolio review — do not defer to scheduled cadence:
+The following signals require **same-day portfolio review**:
 
-1. Any universe company receives sole-source contract >$500M (re-score Dimensions 1, 3, 6; check Portfolio A entry trigger)
-2. DSCA FMS notification for a system tied to a universe company, value >$1B (re-score Dimension 8; check Portfolio B entry trigger)
-3. Supplemental budget request formally introduced to Congress naming specific programs (Portfolio A entry trigger review)
-4. October 1 arrives with no full appropriations signed (CR activated — apply Dimension 6 downgrade across affected companies)
-5. Universe company 8-K reports FCF miss >15% vs. guidance (re-score Dimension 9; check hard gate)
-6. New proxy escalation event (Houthi campaign surge, Hezbollah activation, Iraqi militia strike on US assets) — update proxy vector table in Part 1; re-evaluate domain weights
-7. Major program cancellation affecting a universe company (mandatory re-score; likely portfolio exit trigger)
-8. Production rate increase officially confirmed by DoD or company investor relations (re-score Dimension 4; remove constraint cap if previously applied)
-
----
+1. Universe company receives sole-source contract >$500M (re-score D1, D3, D6; check entry trigger)
+2. DSCA/NSPA/EU EDIP notification for system tied to universe company, value >$1B (re-score D8; check entry trigger)
+3. Supplemental budget request formally introduced naming specific programs (entry trigger review)
+4. October 1 arrives with no full US appropriations signed (CR activated — apply D6 downgrade)
+5. Universe company 8-K reports FCF miss >15% vs. guidance (re-score D9; check hard gate)
+6. New proxy escalation event (Houthi surge, Hezbollah activation, DPRK escalation, Iraqi militia) — update theater weight matrix; re-run TWES across all companies
+7. Major program cancellation affecting universe company (mandatory re-score; likely portfolio exit trigger)
+8. **Theater ceasefire confirmed** (Middle East or Eastern Europe) — re-run theater weight matrix; rebalance portfolio per rebalancing rule
+9. Production rate increase confirmed by DoD/European MoD/company IR (re-score D4; remove constraint cap if applied)
+10. EU EDIP award announcement (re-score European names' D8 Export scores)
