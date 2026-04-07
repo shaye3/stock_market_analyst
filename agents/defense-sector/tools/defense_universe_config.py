@@ -54,12 +54,14 @@ THEATERS = {
 WARFARE_DOMAINS = [
     "Precision Munitions & Guided Weapons",
     "Air & Missile Defense",
-    "ISR / C4ISR / Electronic Warfare",
+    "ISR & C4ISR",
+    "Electronic Warfare & Spectrum Dominance",
     "Naval & Maritime",
-    "Cyber & AI / Autonomous",
-    "Space & Satellite",
+    "Cyber, AI & Autonomous Systems",
+    "Space & Satellite Systems",
     "Rotary & Fixed Wing Platforms",
-    "Ground Vehicles & Soldier Systems",
+    "Ground Vehicles & Land Systems",
+    "Sustainment & Defense Services",
 ]
 
 # ── MSCI World A&D Benchmark Proxy ──────────────────────────────────────────
@@ -257,11 +259,6 @@ UNIVERSE = {
         "batch": "D", "tier": "small",
         "theater_baseline": {"ME": 0.8, "EE": 0.5, "IP": 0.3, "KP": 0.2, "Sahel": 0.2},
     },
-    "ARCS": {
-        "yf_ticker": "ARCS.TA", "name": "Arcos Security", "country": "IL",
-        "batch": "D", "tier": "small",
-        "theater_baseline": {"ME": 0.7, "EE": 0.3, "IP": 0.2, "KP": 0.1, "Sahel": 0.1},
-    },
     "ARYT": {
         "yf_ticker": "ARYT.TA", "name": "Aryt Industries", "country": "IL",
         "batch": "D", "tier": "small",
@@ -273,9 +270,9 @@ UNIVERSE = {
         "theater_baseline": {"ME": 0.6, "EE": 0.4, "IP": 0.4, "KP": 0.2, "Sahel": 0.1},
     },
     "ISI": {
-        "yf_ticker": "ISI.TA", "name": "Israel Shipyards", "country": "IL",
+        "yf_ticker": "ISI.TA", "name": "Imagesat International", "country": "IL",
         "batch": "D", "tier": "small",
-        "theater_baseline": {"ME": 0.7, "EE": 0.2, "IP": 0.3, "KP": 0.1, "Sahel": 0.05},
+        "theater_baseline": {"ME": 0.5, "EE": 0.5, "IP": 0.6, "KP": 0.3, "Sahel": 0.2},
     },
     "AXN": {
         "yf_ticker": "AXN.TA", "name": "Axon Vision", "country": "IL",
@@ -297,13 +294,8 @@ UNIVERSE = {
         "batch": "D", "tier": "small",
         "theater_baseline": {"ME": 0.7, "EE": 0.3, "IP": 0.3, "KP": 0.2, "Sahel": 0.05},
     },
-    "PCBT": {
-        "yf_ticker": "PCBT.TA", "name": "PC Beit Shemesh Turbines", "country": "IL",
-        "batch": "D", "tier": "small",
-        "theater_baseline": {"ME": 0.6, "EE": 0.3, "IP": 0.3, "KP": 0.2, "Sahel": 0.05},
-    },
     "FBRT": {
-        "yf_ticker": "FBRT.TA", "name": "Fibernet", "country": "IL",
+        "yf_ticker": "FBRT.TA", "name": "FMS Enterprises Migun", "country": "IL",
         "batch": "D", "tier": "small",
         "theater_baseline": {"ME": 0.5, "EE": 0.3, "IP": 0.3, "KP": 0.2, "Sahel": 0.1},
     },

@@ -45,9 +45,11 @@ def compute_twes(company_key: str, theater_weights: dict) -> float:
         exposure = baseline.get(theater_id, 0.0)
         score += theater_weight * exposure
 
-    # Normalize: if all theaters equally weighted at 0.2 each and max exposure
-    # is 1.0 per theater, max raw TWES = 1.0. Scale to multiplier 0.7-1.3.
-    multiplier = 0.7 + (score * 0.6)
+    # Normalize by actual weight sum so the multiplier is stable regardless of
+    # whether theater weights sum to exactly 1.0.
+    # Max normalized score = 1.0 → multiplier = 1.3; min = 0.0 → multiplier = 0.7.
+    normalized_score = score / total_theater_weight
+    multiplier = 0.7 + (normalized_score * 0.6)
     return round(min(max(multiplier, 0.7), 1.3), 4)
 
 
