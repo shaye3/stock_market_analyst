@@ -20,7 +20,7 @@ from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(__file__))
 from defense_universe_config import (
-    UNIVERSE, DIMENSION_WEIGHTS, HARD_GATES, THEATERS, PORTFOLIO_CONSTRAINTS
+    UNIVERSE, DIMENSION_WEIGHTS, HARD_GATES, THEATERS, PORTFOLIO_CONSTRAINTS, SVM_CONFIG
 )
 
 
@@ -112,6 +112,28 @@ def check_hard_gates(company_financials: dict) -> list[str]:
     return violations
 
 
+def compute_svm(company_key: str, sentiment_data: dict | None) -> float:
+    """
+    Compute Sentiment Visibility Multiplier from pre-computed sentiment scores.
+    Returns multiplier in range [0.85, 1.15]. Default 1.0 when no data present.
+
+    sentiment_data format: {company_key: {"svm_raw_score": float, ...}}
+    """
+    if not sentiment_data:
+        return 1.0
+    entry = sentiment_data.get(company_key)
+    if not entry:
+        return 1.0
+    raw = entry.get("svm_raw_score")
+    if raw is None:
+        return 1.0
+    for min_score, max_score, multiplier in SVM_CONFIG["score_to_multiplier"]:
+        if min_score <= raw <= max_score:
+            return multiplier
+    # Clamp: if raw > 10.0 use highest tier, if raw < 0 use lowest tier
+    return 1.15 if raw > 10.0 else 0.85
+
+
 def merge_batch_scores(scores_input: dict | list) -> dict:
     """
     Merge scoring data from multiple batch files or a single file.
@@ -130,6 +152,7 @@ def compute_rankings(
     dimension_scores: dict,
     financials: dict,
     theater_weights: dict | None = None,
+    sentiment_data: dict | None = None,
 ) -> dict:
     """
     Main ranking computation.
@@ -138,6 +161,9 @@ def compute_rankings(
         dimension_scores: {company_key: {dimension: score_0_to_10, ...}}
         financials: {yf_ticker: {valuation: {...}, cash_flow: {...}, ...}}
         theater_weights: {theater_id: weight} (from theater intelligence agent)
+        sentiment_data: {company_key: {svm_raw_score: float, ...}} (optional)
+            When provided, applies SVM to final scores: final = composite * TWES * SVM.
+            When None, SVM defaults to 1.0 for all companies (no effect).
 
     Returns: Full ranking output with scores, gates, and rankings.
     """
@@ -164,8 +190,11 @@ def compute_rankings(
         # Compute TWES multiplier
         twes = compute_twes(company_key, theater_weights)
 
-        # Final score = composite * TWES
-        final_score = round(composite * twes, 2)
+        # Compute SVM (1.0 when no sentiment data — no effect)
+        svm = compute_svm(company_key, sentiment_data)
+
+        # Final score = composite * TWES * SVM
+        final_score = round(composite * twes * svm, 2)
 
         entry = {
             "company_key": company_key,
@@ -177,6 +206,7 @@ def compute_rankings(
             "dimension_scores": scores,
             "composite_score": composite,
             "twes_multiplier": twes,
+            "svm_multiplier": svm,
             "final_score": final_score,
             "hard_gate_violations": gate_violations,
             "excluded": len(gate_violations) > 0,
@@ -198,6 +228,7 @@ def compute_rankings(
     return {
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "theater_weights_used": theater_weights,
+        "sentiment_applied": sentiment_data is not None,
         "total_scored": len(results) + len(excluded),
         "passing": len(results),
         "excluded": len(excluded),
@@ -205,7 +236,8 @@ def compute_rankings(
         "hard_gate_exclusions": excluded,
         "top_10": [
             {"rank": e["rank"], "ticker": e["yf_ticker"], "name": e["name"],
-             "score": e["final_score"], "twes": e["twes_multiplier"]}
+             "score": e["final_score"], "twes": e["twes_multiplier"],
+             "svm": e["svm_multiplier"]}
             for e in results[:10]
         ],
     }
@@ -217,6 +249,7 @@ def main():
     parser.add_argument("--scores-dir", help="Directory containing batch score JSON files")
     parser.add_argument("--financials", required=True, help="Path to financials JSON")
     parser.add_argument("--theater-weights", help="Path to theater weights JSON")
+    parser.add_argument("--sentiment", help="Path to sentiment JSON from analyze-defense-sentiment (optional)")
     args = parser.parse_args()
 
     # Load financials
@@ -245,7 +278,15 @@ def main():
         with open(args.theater_weights) as f:
             theater_weights = json.load(f)
 
-    result = compute_rankings(scores, financials, theater_weights)
+    # Load sentiment data (optional)
+    sentiment_data = None
+    if args.sentiment:
+        with open(args.sentiment) as f:
+            sd = json.load(f)
+        # Support both {company_key: {...}} and {"companies": {company_key: {...}}}
+        sentiment_data = sd.get("companies", sd)
+
+    result = compute_rankings(scores, financials, theater_weights, sentiment_data)
     print(json.dumps(result, indent=2))
 
 

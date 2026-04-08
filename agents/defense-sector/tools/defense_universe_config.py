@@ -64,6 +64,28 @@ WARFARE_DOMAINS = [
     "Sustainment & Defense Services",
 ]
 
+# ── Sentiment Visibility Multiplier Configuration ────────────────────────────
+SVM_CONFIG = {
+    "enabled": True,
+    "svm_range": (0.85, 1.15),
+    "signal_weights": {
+        "analyst_sentiment": 0.40,
+        "institutional_signal": 0.35,
+        "news_visibility": 0.25,
+    },
+    "score_to_multiplier": [
+        # (min_score, max_score, multiplier)
+        (8.5, 10.0, 1.15),
+        (7.0, 8.49, 1.08),
+        (5.5, 6.99, 1.02),
+        (4.5, 5.49, 1.00),
+        (3.0, 4.49, 0.95),
+        (1.5, 2.99, 0.90),
+        (0.0, 1.49, 0.85),
+    ],
+    "cache_validity_days": 7,
+}
+
 # ── MSCI World A&D Benchmark Proxy ──────────────────────────────────────────
 BENCHMARK_PROXY = {
     "ITA": 0.50,
@@ -446,6 +468,7 @@ def get_all_config() -> dict:
         "warfare_domains": WARFARE_DOMAINS,
         "benchmark_proxy": BENCHMARK_PROXY,
         "portfolio_constraints": PORTFOLIO_CONSTRAINTS,
+        "svm_config": SVM_CONFIG,
         "universe": UNIVERSE,
         "universe_size": len(UNIVERSE),
         "batches": {

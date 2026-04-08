@@ -32,6 +32,38 @@ Confirm to the user: "Loaded defense universe config: XX companies across 6 batc
 
 ---
 
+## Stage 0b: Check for Cached Sentiment Data (~2s)
+
+```bash
+cd $PROJECT_DIR && $PYTHON - <<'EOF'
+import os, json, sys
+from datetime import datetime, timedelta
+f = '/tmp/defense_sentiment.json'
+if os.path.exists(f):
+    mtime = datetime.fromtimestamp(os.path.getmtime(f))
+    age = datetime.now() - mtime
+    try:
+        data = json.load(open(f))
+        count = len(data.get('companies', {}))
+        if age < timedelta(days=7):
+            print(f'SENTIMENT_AVAILABLE {count} {age.days}')
+        else:
+            print(f'SENTIMENT_STALE {age.days}')
+    except Exception:
+        print('SENTIMENT_INVALID')
+else:
+    print('SENTIMENT_MISSING')
+EOF
+```
+
+Interpret the output:
+- `SENTIMENT_AVAILABLE N D`: sentiment data is fresh (N companies, D days old).
+  Set **USE_SENTIMENT=true**. Report to user: "Sentiment overlay active: SVM will adjust rankings for N companies (data {D}d old)."
+- `SENTIMENT_STALE D` or `SENTIMENT_MISSING` or `SENTIMENT_INVALID`:
+  Set **USE_SENTIMENT=false**. Report to user: "No fresh sentiment data. Run /analyze-defense-sentiment for enhanced SVM scoring."
+
+---
+
 ## Stage 1: Batch Data Fetch (~1-2 min)
 
 Run these 2 commands in **parallel** via Bash:
@@ -131,12 +163,23 @@ Extract theater weights from the Stage 2 theater intelligence output and write t
 ```
 Parse that JSON block from the theater agent output and write only the dict (5 keys) to `/tmp/theater_weights.json`. Weights must be floats summing to approximately 1.0.
 
-Run:
+Run the scoring command. If **USE_SENTIMENT=true** (set in Stage 0b), include the `--sentiment` flag:
+
 ```bash
+# If USE_SENTIMENT=true:
 cd $PROJECT_DIR && $PYTHON agents/defense-sector/tools/calculate_defense_scoring.py \
     --scores /tmp/defense_scores.json \
     --financials /tmp/defense_financials.json \
-    --theater-weights /tmp/theater_weights.json > /tmp/defense_rankings.json
+    --theater-weights /tmp/theater_weights.json \
+    --sentiment /tmp/defense_sentiment.json \
+    > /tmp/defense_rankings.json
+
+# If USE_SENTIMENT=false:
+cd $PROJECT_DIR && $PYTHON agents/defense-sector/tools/calculate_defense_scoring.py \
+    --scores /tmp/defense_scores.json \
+    --financials /tmp/defense_financials.json \
+    --theater-weights /tmp/theater_weights.json \
+    > /tmp/defense_rankings.json
 ```
 
 Read the output and report:
