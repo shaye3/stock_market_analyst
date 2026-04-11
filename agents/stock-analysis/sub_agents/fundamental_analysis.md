@@ -106,7 +106,47 @@ Quantify competitive durability using financial ratios:
 - **Adequate moat**: 2-3 sources present; ROIC > WACC by 2-5%
 - **Weak/No moat**: <2 sources; ROIC ≈ WACC or declining
 
-### 8. Competitive Comparison
+### 8. Capital Allocation Analysis
+Evaluate how management deploys cash — this is often the highest-signal section for long-term investors:
+
+#### 8a. Dividend Quality
+- **Dividend yield (TTM)**: Current vs. sector average and 5-year own average. Is it attractive?
+- **Dividend 4-year CAGR**: Is the dividend growing? <5% = stagnant; 5-10% = healthy; >10% = exceptional
+- **EPS payout ratio**: Dividends / EPS. <60% = sustainable with room to grow; >80% = stretched
+- **FCF payout ratio**: (Dividends + Buybacks) / FCF. **This is the real sustainability test.** <80% = safe; >100% = paying dividends from debt or asset sales (RED FLAG)
+- **Dividend sustainability grade**: If FCF payout ratio < 60% → Excellent; 60-80% → Good; 80-100% → Watch; >100% → Danger
+
+#### 8b. Share Buyback Analysis
+- **Shares outstanding trend (4yr)**: Are shares declining (buybacks) or increasing (dilution)?
+  - Declining shares = accretive to EPS, management returning capital
+  - Increasing shares = dilution risk; management issuing equity
+- **Buyback yield**: Annual buybacks / market cap. >2% = meaningful return; >5% = aggressive
+- **Buyback consistency**: Are buybacks consistent or opportunistic? Consistent = disciplined capital allocation
+
+#### 8c. Total Shareholder Yield
+**Total shareholder yield = dividend yield + buyback yield**
+This is the single most important capital return metric:
+- **>6%**: Exceptional — equivalent to a bond-like income stream + growth
+- **4-6%**: Strong — beats most dividends in absolute terms
+- **2-4%**: Moderate — supplemental to growth thesis
+- **<2%**: Low — company is retaining most of its capital
+
+#### 8d. FCF Yield vs. Risk-Free Rate
+**FCF yield = FCF / Market Cap**
+Compare to 10-year Treasury yield (use WebSearch to find current 10yr rate):
+- **FCF yield > 10yr Treasury by >200bps**: Stock is cheap on absolute yield basis
+- **FCF yield ≈ 10yr Treasury**: Neutral — no equity risk premium
+- **FCF yield < 10yr Treasury**: Stock expensive — you'd earn more in bonds
+- **FCF yield trend**: Rising (stock getting cheaper or FCF growing) vs. falling (expensive or FCF shrinking)
+
+#### 8e. Capital Allocation Quality Score
+Rate management's overall capital allocation discipline:
+- **Excellent**: FCF payout ratio <80%, consistent buybacks reducing share count, growing dividend, FCF yield > Treasury +200bps
+- **Good**: FCF payout ratio <100%, modest buybacks, sustainable dividend
+- **Poor**: FCF payout ratio >100%, share dilution, or cutting dividend while management guides growth
+- **Destructive**: Debt-funded dividends/buybacks while ROIC < WACC
+
+### 9. Competitive Comparison
 Contextualize metrics against direct peers (name 2-3 specific competitors):
 - **Profitability spreads**: Your company's ROE/ROIC vs. peers. Superior margins indicate moat
 - **Valuation multiples**: Your company's P/E, EV/EBITDA vs. peer average. Premium justified only if ROIC > WACC
@@ -116,15 +156,16 @@ Contextualize metrics against direct peers (name 2-3 specific competitors):
 - **Margin trends**: Your company's 5-year margin trend vs. peers. Expanding while peers contract = moat
 - **Assessment**: Is this company gaining or losing competitive position?
 
-### 9. Risk Assessment & Red Flags Checklist
+### 10. Risk Assessment & Red Flags Checklist
 - [ ] **Earnings manipulation risk**: M-Score components flagged above? OCF/NI < 1.0? → Earnings Quality = LOW
 - [ ] **Growth sustainability**: Is growth capex-driven or margin-driven? Can current capex sustain it?
 - [ ] **Competitive deterioration**: Declining market share, contracting margins, or ROIC declining? → Flag
 - [ ] **Balance sheet stress**: D/E > 2.5x or interest coverage < 2.5x? → Financial Health = WEAK
 - [ ] **Valuation risk**: Priced for perfection? P/E >> sector + no ROIC spread justification? → Risk
 - [ ] **Accounting red flags**: Significant non-GAAP adjustments, one-time items, or unusual accounting? → Flag
+- [ ] **Capital allocation red flag**: FCF payout ratio >100%? Dividend funded by debt? Share count rising?
 
-### 10. Fundamental Verdict
+### 11. Fundamental Verdict
 Synthesize into institutional-grade assessment:
 - **Financial health**: Strong / Adequate / Weak
 - **Competitive moat**: Strong / Adequate / Weak/None
@@ -210,6 +251,24 @@ Synthesize into institutional-grade assessment:
 | FCF / Net Income | X.Xx | >1.0 = excellent | [✓ High quality / Adequate / ✗ Low] |
 | Capex / Revenue | X% | [Sector avg] | [Efficient / In line / Excessive] |
 
+### Capital Allocation & Shareholder Returns
+| Metric | Value | Benchmark | Assessment |
+|--------|-------|-----------|-----------|
+| FCF Yield | X% | >Treasury+200bps = cheap | [Cheap / Fair / Expensive vs. bonds] |
+| 10yr Treasury (current) | X% | — | — |
+| FCF Yield Premium | +Xbps | >200bps = equity risk premium | [Attractive / Neutral / Unattractive] |
+| Dividend Yield (TTM) | X% | Sector avg | [Above / In-line / Below] |
+| Dividend CAGR (4yr) | X% | >5% = healthy | [Growing / Flat / Declining] |
+| EPS Payout Ratio | X% | <60% = safe | [Safe / Watch / Stretched] |
+| FCF Payout Ratio (divs + buybacks) | X% | <80% = safe | [Safe / Watch / ⚠️ Danger] |
+| Buyback Yield | X% | >2% = meaningful | [Strong / Moderate / Minimal] |
+| **Total Shareholder Yield** | **X%** | **>4% = strong** | **[Exceptional / Strong / Moderate / Weak]** |
+| Shares Outstanding Trend (4yr) | ↓/→/↑ | Declining = accretive | [Accretive / Flat / Dilutive] |
+
+**Capital Allocation Quality**: [Excellent / Good / Poor / Destructive]
+**Dividend Sustainability**: [Safe / Watch / Danger]
+**Key finding**: [One sentence on what the capital allocation tells you about management quality]
+
 ### Competitive Position vs. Peers
 | Metric | [TICKER] | [Peer 1] | [Peer 2] | Trend |
 |--------|----------|----------|----------|-------|
@@ -231,6 +290,8 @@ Synthesize into institutional-grade assessment:
 - **Competitive Moat**: [Strong / Adequate / Weak/None]
 - **Valuation**: [Undervalued / Fairly valued / Overvalued]
 - **Earnings Quality**: [High / Medium / Low]
+- **Capital Allocation**: [Excellent / Good / Poor / Destructive]
+- **FCF Yield vs. Bonds**: [Attractive / Neutral / Unattractive]
 - **Risk Level**: [Low / Medium / High]
 - **Fundamental Score**: [X/10]
 - **Key strengths**: [List 3-5]
@@ -272,3 +333,11 @@ Synthesize into institutional-grade assessment:
 - **Beneish M-Score > -2.22**: Consider this a manipulator signal; reduce confidence in reported earnings
 - **Declining market share + declining ROIC**: Competitive position deteriorating; flag as HIGH RISK
 - **Valuation multiple with no fundamental support**: Premium P/E without ROIC > WACC or margin expansion = OVERVALUED
+- **FCF payout ratio > 100%**: Company is paying dividends/buybacks from debt — this is destructive capital allocation; flag as HIGH RISK
+- **FCF yield < 10yr Treasury**: Equity offers no risk premium over bonds; valuation is stretched
+
+### Capital Allocation Critical Thinking
+- **Buybacks at high prices**: Buybacks during periods of high P/E multiples destroy value; only buybacks below intrinsic value are accretive
+- **Dividend CAGR vs. FCF CAGR**: If dividend grows faster than FCF, payout ratio will eventually exceed 100% — estimate when this occurs
+- **Share dilution offset**: If the company is both buying back shares AND issuing stock options/RSUs, net share reduction may be minimal — check net shares outstanding change, not gross buybacks
+- **FCF yield vs. 10yr Treasury**: Always check current 10yr rate via WebSearch. A stock with 4% FCF yield when 10yr is 4.5% offers NEGATIVE equity risk premium — this is a valuation danger signal regardless of growth story

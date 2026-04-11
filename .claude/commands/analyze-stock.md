@@ -66,7 +66,9 @@ Produce the Macro Economy Report section.
 ### Agent 3: Fundamental Analysis Agent
 Following the instructions in `/Users/shayeyal/PycharmProjects/Stock_Analysis_System/agents/stock-analysis/sub_agents/fundamental_analysis.md`, analyze:
 - All data from `FINANCIALS_DATA` (valuation, profitability, growth, balance_sheet, cash_flow, historical statements)
+- Capital allocation data from `FINANCIALS_DATA.capital_allocation` (FCF yield, dividends, buybacks, total shareholder yield)
 - Analyst consensus from `FINANCIALS_DATA.analyst_consensus`
+- Use WebSearch to find current 10-year Treasury yield for FCF yield comparison
 
 Produce the Fundamental Analysis Report section.
 
@@ -103,12 +105,13 @@ Synthesize all 6 reports into the complete Final Investment Report with:
 2. Company Overview
 3. Industry Analysis
 4. Macro Environment
-5. Fundamental Analysis
+5. Fundamental Analysis (include Capital Allocation section from Agent 3)
 6. Technical Analysis
 7. Analyst Sentiment
 8. Risk Analysis
-9. Investment Thesis (Bull/Base/Bear scenarios)
-10. Final Recommendation (STRONG BUY / BUY / HOLD / AVOID) with full trade parameters
+9. Price Target & Valuation (DCF + Comps + FCF Yield → blended target + sensitivity table)
+10. Investment Thesis (Bull/Base/Bear scenarios)
+11. Final Recommendation (STRONG BUY / BUY / HOLD / AVOID) with full trade parameters
 
 ---
 

@@ -40,7 +40,87 @@ Identify:
 - **Where agents disagree**: Areas of uncertainty or conflicting signals
 - **Red flags**: Any agent raised a concern that is a potential deal-breaker?
 
-### 3. Scenario Analysis
+### 3. Formal Price Target Derivation
+
+Construct a rigorous, methodology-stated price target. Do NOT simply echo analyst consensus — derive your own target with explicit assumptions.
+
+#### Method A — DCF (Intrinsic Value)
+
+Use these inputs from the data (state each assumption explicitly):
+1. **Base FCF** = `capital_allocation.fcf_by_year` most recent year (or TTM from `cash_flow.free_cash_flow`)
+2. **FCF Growth Rate (Years 1-5)**: Use analyst revenue growth consensus as a proxy, adjust for margin trend. State your assumption (e.g., "8% pa based on 6% revenue growth + 2% margin expansion")
+3. **FCF Growth Rate (Years 6-10)**: Step down to half the Stage 1 rate (conservative fade)
+4. **Terminal Growth Rate**: Default 2.5% (US nominal GDP long-run). Justify if different.
+5. **WACC**: Estimate from sector. Use one of:
+   - **Large-cap defensive/utility/defense**: 8-9%
+   - **Large-cap tech/industrial**: 9-10%
+   - **Mid-cap growth**: 10-11%
+   - **Small-cap / high beta**: 11-13%
+   State your WACC and justify with beta and sector risk profile.
+
+**DCF Formula**: Sum PV of FCF years 1-10 + PV of terminal value, divide by shares outstanding.
+Terminal Value = FCF_year10 × (1 + terminal_g) / (WACC − terminal_g)
+
+State the resulting **DCF intrinsic value per share**.
+
+#### Method B — Comps-Based Target (Forward Multiple)
+
+Use sector peer multiples to derive a price target:
+1. **Identify sector average forward P/E** (use your Fundamental analysis data + WebSearch for "sector average forward P/E 2026")
+2. **Apply to your forward EPS** (`profitability.forward_eps`)
+3. **State the justified multiple**: Does ROIC > WACC justify a premium to sector? Apply +10-20% premium if ROIC spread > 5%
+4. **EV/EBITDA method** (cross-check): Apply sector EV/EBITDA multiple to EBITDA, subtract net debt, divide by shares outstanding
+
+State the resulting **Comps-based target per share**.
+
+#### Method C — FCF Yield Target (Income Investor Framework)
+
+Calculate the implied price at which the stock offers a "fair" FCF yield:
+- **Target FCF yield** = 10yr Treasury + your required equity risk premium (typically 200-300bps)
+- **Implied fair price** = FCF / Target FCF yield
+- This gives you a "bond-equivalent" intrinsic value floor
+
+State the resulting **FCF Yield implied price**.
+
+#### Blended Price Target
+
+Blend the three methods with weights appropriate to the company type:
+- **Growth companies** (high reinvestment, low div): DCF 50% / Comps 40% / FCF Yield 10%
+- **Value/dividend companies** (stable FCF, mature): DCF 35% / Comps 35% / FCF Yield 30%
+- **Cyclical/defense**: DCF 40% / Comps 40% / FCF Yield 20%
+
+| Method | Result | Weight | Weighted Value |
+|--------|--------|--------|---------------|
+| DCF Intrinsic Value | $X | X% | $X |
+| Comps-Based (Forward P/E) | $X | X% | $X |
+| FCF Yield Implied Price | $X | X% | $X |
+| **Blended 12-Month Target** | | **100%** | **$X** |
+
+**Implied upside/downside from current price**: X%
+
+**Price target confidence**: [High / Medium / Low]  
+(High = all three methods within 15% of each other; Low = wide dispersion between methods)
+
+#### Valuation Sensitivity Table
+
+Build a 4×4 matrix for the PRIMARY valuation driver (forward P/E for most companies; EV/EBITDA for capital-intensive; FCF yield for mature dividend payers):
+
+```
+Forward EPS sensitivity vs. P/E multiple:
+
+              P/E: [low]  [sector avg]  [premium]  [bull]
+EPS Bear: $X   $...      $...          $...       $...
+EPS Base: $X   $...     [$CURRENT]     $...       $...
+EPS Bull: $X   $...      $...          $...       $...
+
+→ Current price = $X implies [X]x forward P/E on base EPS
+→ Bull case = $X at [X]x on bull EPS
+→ Bear case = $X at [X]x on bear EPS
+```
+
+State clearly: "At current price of $X, you are paying [X]x forward earnings. For this to be a good investment, you need [EPS growth assumption]% EPS CAGR over the next 3 years."
+
+### 4. Scenario Analysis
 Construct three scenarios:
 
 **Bull Case** (probability X%):
@@ -132,7 +212,39 @@ Provide specific, actionable guidance:
 
 ---
 
-## 8. Investment Thesis
+## 8. Price Target & Valuation
+
+### Methodology & Assumptions
+| Input | Assumption | Justification |
+|-------|-----------|--------------|
+| Base FCF (TTM) | $X | From capital_allocation data |
+| FCF Growth (Yr 1-5) | X% pa | [Revenue growth + margin trend] |
+| FCF Growth (Yr 6-10) | X% pa | [Fade to half of Stage 1] |
+| Terminal Growth Rate | X% | [US nominal GDP default or stated reason] |
+| WACC | X% | [Sector + beta justification] |
+| 10yr Treasury Rate | X% | [Current rate from WebSearch] |
+| Required Equity Risk Premium | +Xbps | [Your required spread over risk-free] |
+
+### Price Target Derivation
+| Method | Target | Weight | Weighted |
+|--------|--------|--------|---------|
+| DCF Intrinsic Value | $X | X% | $X |
+| Comps Forward P/E | $X | X% | $X |
+| FCF Yield Implied Price | $X | X% | $X |
+| **Blended 12-Month Target** | | **100%** | **$X** |
+
+**Current Price**: $X | **Implied Upside**: X% | **Target Confidence**: [High/Medium/Low]
+
+### Valuation Sensitivity (Forward P/E × Forward EPS)
+
+[Generate 3×4 table with bear/base/bull EPS rows × P/E multiple columns]
+
+**At current price of $X, you are paying [X]x forward earnings on base estimates.**  
+To justify this valuation, the company needs [X]% EPS CAGR over 3 years.
+
+---
+
+## 9. Investment Thesis
 
 ### Bull Case (X% probability) — Target: $X
 [What needs to go right]
@@ -145,7 +257,7 @@ Provide specific, actionable guidance:
 
 ---
 
-## 9. Final Recommendation
+## 10. Final Recommendation
 
 > ## [STRONG BUY / BUY / HOLD / AVOID]: [TICKER] at $[CURRENT PRICE]
 
@@ -173,7 +285,7 @@ Provide specific, actionable guidance:
 
 ---
 
-## 10. Limitations & Disclaimers
+## 11. Limitations & Disclaimers
 [State any data gaps, uncertainties, or limitations in this analysis]
 
 *This report is generated by an AI research system and is for informational purposes only. It does not constitute financial advice. Always do your own due diligence before making investment decisions.*
@@ -186,3 +298,10 @@ Provide specific, actionable guidance:
 - If the evidence is genuinely mixed, recommend HOLD rather than forcing a direction
 - The report should read like an institutional research report, not a promotional piece
 - Every claim must be traceable back to data from the agent reports
+
+### Price Target Discipline
+- **State all DCF assumptions explicitly** — a price target without stated WACC, growth rate, and terminal rate is meaningless
+- **Check method convergence**: If DCF, comps, and FCF yield targets diverge by >30%, call out high uncertainty
+- **Don't anchor to analyst consensus**: Your DCF may arrive at a different target than the Wall Street average — own it and explain the difference
+- **Sensitivity is more valuable than a point estimate**: Clearly state the range of outcomes (bear/base/bull target prices) so the reader understands the distribution, not just the mode
+- **WACC discipline**: Never use a WACC below 8% for any equity unless explicitly defending it. A company with high financial leverage or cyclical revenue should use WACC ≥ 10%
